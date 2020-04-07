@@ -22,16 +22,14 @@
 #define CALEND_COLOR_CUR_HOLY_FG		12	//	цвет чисел текущего месяца выходные
 #define CALEND_COLOR_TODAY_BG			13	//	цвет чисел текущего дня
 #define CALEND_COLOR_TODAY_FG			14	//	фон  чисел текущего дня
+#define CALEND_COLOR_WORKDAY_BG			15	//	цвет чисел рабочего дня
+#define CALEND_COLOR_WORKDAY_FG			16	//	фон  чисел рабочего дня
 
 // количество цыетовых схем
 #define COLOR_SCHEME_COUNT	5
 
-// адрес флэшпамяти для хранения настроек
-#define OPTIONS_FLASH_ADDRESS	0x007810B0
-// длина буфера в байтах
-#define OPTIONS_FLASH_LIMIT			80
 //	смещение адреса для хранения настроек календаря
-#define OPTIONS_OFFSET_CALEND		0
+#define OPT_OFFSET_CALEND_OPT		0
 
 #if FW_VERSION==latin_1_1_5_12 || FW_VERSION==latin_1_1_5_36
 // параметры рисования цифр календаря
@@ -74,12 +72,13 @@ struct calend_opt_ {
 
 // текущие данные просматриваемого/редактируемого календаря
 struct calend_ {
-		void* 	ret_f;					//	адрес функции возврата
-		unsigned char	color_scheme;	//	цветовая схема
-										//	отображаемый месяц
-unsigned int 	day;					//	день
-unsigned int 	month;					//	месяц
-unsigned int 	year;					//	год
+	Elf_proc_* 	proc;				//	указатель на данные запущенного процесса
+		void* 	ret_f;				//	адрес функции возврата
+unsigned char	color_scheme;		//	цветовая схема
+									//	отображаемый месяц
+unsigned int 	day;				//	день
+unsigned int 	month;				//	месяц
+unsigned int 	year;				//	год
 };
 
 

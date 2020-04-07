@@ -1,1 +1,6 @@
-Календарь
+Timetable
+RU	График Работы
+IT	Orario di lavoro
+ES	Horario de trabajo
+FR	Horaire de travail
+DE	Zeitplan
