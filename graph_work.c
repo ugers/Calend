@@ -18,10 +18,12 @@
 
 #include <libbip.h>
 #include "graph_work.h"
-#define DEBUG_LOG
-int option = 0;
-int sy;
-int sy_opt;
+//#define DEBUG_LOG
+char vibro;
+char vibro_opt;
+char option = 0;
+char sy;
+char sy_opt;
 //	структура меню экрана календаря
 struct regmenu_ menu_calend_screen = {
 						55,
@@ -112,11 +114,11 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 			calend->color_scheme = 0;
 		
 	ElfReadSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
-	/*if (sy_opt < 0) 
-			sy = 0;
-	else */
 			sy = sy_opt;
-		
+			
+	ElfReadSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
+			vibro = vibro_opt;
+			
 	draw_month(calend->day, calend->month, calend->year);
 }
 
@@ -335,7 +337,6 @@ if (isLeapYear(year)>0) day_month[2]=29;
 unsigned char d=wday(1,month, year);
 unsigned char m=month;
 //unsigned char y=year;
-//int sy;
 
 	struct datetime_ datetime;
 	// получим текущую дату
@@ -801,37 +802,59 @@ void key_press_calend_screen(){
 	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 };
 
-/*void show_calend_option_screen () {
-  struct app_data_** 	app_data_p = get_ptr_temp_buf_2(); 	//	pointer to a pointer to screen data
-  struct app_data_ *	app_data;					//	pointer to screen data
-    reg_menu(&menu_calend_screen, 0);
-  
-  draw_calend_option_menu();
-}*/
-
-void draw_calend_option_menu(sy){
-						char text[30];
+void draw_calend_option_menu(sy,vibro){
+						char text_sy[10];
 						set_bg_color(COLOR_BLACK);
 						fill_screen_bg();
-						set_fg_color (COLOR_RED);
-						draw_filled_rect(0, 66, 40, 96);
-						set_fg_color (COLOR_GREEN);
-						draw_filled_rect(136, 66, 176, 96);
 						set_graph_callback_to_ram_1();
-						// подгружаем шрифты
-						load_font();
+						load_font();// подгружаем шрифты
 						set_fg_color(COLOR_WHITE);
+						//заголовок
 						text_out_center("Настройки", 88, 8); //надпись,ширина,высота
 						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
-						text_out_center("Смещение дней", 88, 30);
-						_sprintf(text, "%d", sy);
-						text_out_center(text, 88, 70);
+						//опция 1 - смещение дней
+						text_out_center("Смещение дней", 88, 29);
+						_sprintf(text_sy, "%d", sy);
+						text_out_center(text_sy, 88, 50); //надпись,ширина,высота
+						//опция 2 - вибрация
+						text_out_center("Вибрация", 88, 85);
+						if (vibro==0){
+							text_out_center("Выкл.", 88, 110);
+						} else {
+							text_out_center("Вкл.", 88, 110);
+						}
+						//смещение минус
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 50, 50, 80);//начало X/начало У/конец Х/конец У
 						set_bg_color(COLOR_RED);
-						text_out_center("-", 20, 70);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("-", 25, 55); //надпись,ширина,высота
+						//смещение плюс
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(126, 50, 176, 80);//начало X/начало У/конец Х/конец У
 						set_bg_color(COLOR_GREEN);
-						text_out_center("+", 157, 70);
-						show_res_by_id(ICON_CANCEL_RED, 20, 155);
-						show_res_by_id(ICON_OK_GREEN, 150, 155);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("+", 152, 55); //надпись,ширина,высота
+						//вибрация вЫключить
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 105, 50, 135);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_RED);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("-", 25, 110); //надпись,ширина,высота
+						//вибрация включить
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(126, 105, 176, 135);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_GREEN);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("+", 152, 110); //надпись,ширина,высота
+						//кнопка отмены
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
+						show_res_by_id(ICON_CANCEL_RED, 35, 153); 
+						// кнопка сохранить
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
+						show_res_by_id(ICON_OK_GREEN, 125, 153); 
 						repaint_screen_lines(0, 176);
 }
 
@@ -864,8 +887,9 @@ int dispatch_calend_screen (void *param){
 		case GESTURE_CLICK: {
 			
 			// вибрация при любом нажатии на экран
+			if (vibro==1){
 			vibrate (1, 40, 0);
-			
+			};
 				if (option==0){
 					if ( gest->touch_pos_y < CALEND_Y_BASE ){ // кликнули по верхней строке
 						if (gest->touch_pos_x < 44){
@@ -908,38 +932,60 @@ int dispatch_calend_screen (void *param){
 						ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 					}
 				}else if (option==1){
-						if (( gest->touch_pos_y >66) &&  ( gest->touch_pos_y < 110) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
-								// тач в центр-лево экрана
-								// выполняем действия
-								vibrate(2,150,70);
+						//смещение минус
+						if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
+								if (vibro==1){
+									vibrate(2,150,70);
+								}
 								if ( sy > 0 ){
 									sy = sy-1;
 								}
-								draw_calend_option_menu(sy);
+								draw_calend_option_menu(sy,vibro);
 								repaint_screen_lines(0, 176);
-						}else if (( gest->touch_pos_y >66) &&  ( gest->touch_pos_y < 110) &&  ( gest->touch_pos_x >110) &&  ( gest->touch_pos_x < 176)){
-								// тач в центр-право экрана
-								// выполняем действия
-								vibrate(2,150,70);
+						//смещение плюс
+						}else if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
+								if (vibro==1){
+									vibrate(2,150,70);
+								}
 								if ( sy < 4 ){
 									sy = sy+1;
 								}
-								draw_calend_option_menu(sy);
+								draw_calend_option_menu(sy,vibro);
 								repaint_screen_lines(0, 176);
-						}else if (( gest->touch_pos_y >130) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
-								// тач в низ-лево экрана
-								// выполняем действия
-								vibrate(1,70,0);
+						//вибрация вЫключить
+						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
+								if (vibro==1){
+									vibrate(2,150,70);
+								}
+								vibro = 0;
+								draw_calend_option_menu(sy,vibro);
+								repaint_screen_lines(0, 176);
+						//вибрация включить
+						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
+								if (vibro==1){
+									vibrate(2,150,70);
+								}
+								vibro = 1;
+								draw_calend_option_menu(sy,vibro);
+								repaint_screen_lines(0, 176);
+						//кнопка отмены
+						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
+								if (vibro==1){
+									vibrate(1,70,0);
+								}
 								option = 0;
 								repaint_screen_lines(0, 176);
-						}else if (( gest->touch_pos_y >130) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >110) &&  ( gest->touch_pos_x < 176)){
-								// тач в низ-право экрана
-								// выполняем действия
-								vibrate(1,70,0);
+						//кнопка сохранить
+						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >88) &&  ( gest->touch_pos_x < 176)){
+								if (vibro==1){
+									vibrate(1,70,0);
+								}
 								option = 0;
 								// запишем настройки в флэш память
 								sy_opt = sy;
+								vibro_opt = vibro;
 								ElfWriteSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
+								ElfWriteSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
 								//draw_month(day, calend->month, calend->year);
 								repaint_screen_lines(0, 176);
 						};		
@@ -950,7 +996,7 @@ int dispatch_calend_screen (void *param){
 		};
 		
 		case GESTURE_SWIPE_RIGHT: 	//	свайп направо
-					draw_calend_option_menu(sy);
+					draw_calend_option_menu(sy,vibro);
 					repaint_screen_lines(0, 176); 
 					option = 1;
 		case GESTURE_SWIPE_LEFT: {	// справа налево
@@ -999,7 +1045,7 @@ int dispatch_calend_screen (void *param){
 				
 				break;
 				}else if (option==1){
-				}
+				};
 		};	//	case GESTURE_SWIPE_LEFT:
 		
 		
@@ -1023,7 +1069,7 @@ int dispatch_calend_screen (void *param){
 				set_update_period(1, INACTIVITY_PERIOD);
 				break;
 			}else if (option==1){
-			}
+			};
 		};
 		case GESTURE_SWIPE_DOWN: {	// свайп вниз
 			if (option==0){
@@ -1045,7 +1091,7 @@ int dispatch_calend_screen (void *param){
 				set_update_period(1, INACTIVITY_PERIOD);
 				break;
 			}else if (option==1){
-			}
+			};
 		};		
 		default:{	// что-то пошло не так...
 			break;
