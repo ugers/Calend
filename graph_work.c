@@ -19,11 +19,11 @@
 #include <libbip.h>
 #include "graph_work.h"
 //#define DEBUG_LOG
-char vibro;
-char vibro_opt;
 char option = 0;
 char sy;
 char sy_opt;
+char vibro;
+char vibro_opt;
 //	структура меню экрана календаря
 struct regmenu_ menu_calend_screen = {
 						55,
@@ -116,7 +116,7 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	ElfReadSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
 			sy = sy_opt;
 			
-	ElfReadSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
+	ElfReadSettings(calend->proc->index_listed, &vibro_opt, 3, sizeof(vibro_opt));
 			vibro = vibro_opt;
 			
 	draw_month(calend->day, calend->month, calend->year);
@@ -802,7 +802,7 @@ void key_press_calend_screen(){
 	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 };
 
-void draw_calend_option_menu(sy,vibro){
+void draw_calend_option_menu(char sy,char vibro){
 						char text_sy[10];
 						set_bg_color(COLOR_BLACK);
 						fill_screen_bg();
@@ -856,7 +856,60 @@ void draw_calend_option_menu(sy,vibro){
 						draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
 						show_res_by_id(ICON_OK_GREEN, 125, 153); 
 						repaint_screen_lines(0, 176);
-}
+};
+
+void draw_calend_option_down_menu(){
+						char text_timerexit[10];
+						set_bg_color(COLOR_BLACK);
+						fill_screen_bg();
+						set_graph_callback_to_ram_1();
+						load_font();// подгружаем шрифты
+						set_fg_color(COLOR_WHITE);
+						//заголовок
+						text_out_center("Настройки", 88, 8); //надпись,ширина,высота
+						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
+						//опция 1 - График
+						text_out_center("График", 88, 29);
+						text_out_center("2/2", 88, 50); //надпись,ширина,высота*/
+						//опция 2 - Время выхода
+						text_out_center("Время выхода", 88, 85);
+						char timerexit = INACTIVITY_PERIOD/1000;
+						_sprintf(text_timerexit, "%d", timerexit);
+						text_out_center(text_timerexit, 88, 50); //надпись,ширина,высота
+						//смещение минус
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 50, 50, 80);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_RED);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("-", 25, 55); //надпись,ширина,высота
+						//смещение плюс
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(126, 50, 176, 80);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_GREEN);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("+", 152, 55); //надпись,ширина,высота
+						//вибрация вЫключить
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 105, 50, 135);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_RED);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("-", 25, 110); //надпись,ширина,высота
+						//вибрация включить
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(126, 105, 176, 135);//начало X/начало У/конец Х/конец У
+						set_bg_color(COLOR_GREEN);
+						set_fg_color(COLOR_WHITE);
+						text_out_center("+", 152, 110); //надпись,ширина,высота
+						//кнопка отмены
+						set_fg_color (COLOR_RED);
+						draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
+						show_res_by_id(ICON_CANCEL_RED, 35, 153); 
+						// кнопка сохранить
+						set_fg_color (COLOR_GREEN);
+						draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
+						show_res_by_id(ICON_OK_GREEN, 125, 153); 
+						repaint_screen_lines(0, 176);
+};
 
 void calend_screen_job(){
 	struct calend_** 	calend_p = get_ptr_temp_buf_2(); 		//	указатель на указатель на данные экрана 
@@ -985,7 +1038,7 @@ int dispatch_calend_screen (void *param){
 								sy_opt = sy;
 								vibro_opt = vibro;
 								ElfWriteSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
-								ElfWriteSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
+								ElfWriteSettings(calend->proc->index_listed, &vibro_opt, 3, sizeof(vibro_opt));
 								//draw_month(day, calend->month, calend->year);
 								repaint_screen_lines(0, 176);
 						};		
@@ -996,9 +1049,11 @@ int dispatch_calend_screen (void *param){
 		};
 		
 		case GESTURE_SWIPE_RIGHT: 	//	свайп направо
+				if (option==0){
 					draw_calend_option_menu(sy,vibro);
 					repaint_screen_lines(0, 176); 
 					option = 1;
+				};
 		case GESTURE_SWIPE_LEFT: {	// справа налево
 			if (option==0){
 				if ( get_left_side_menu_active()){
@@ -1044,7 +1099,6 @@ int dispatch_calend_screen (void *param){
 					}
 				
 				break;
-				}else if (option==1){
 				};
 		};	//	case GESTURE_SWIPE_LEFT:
 		
@@ -1069,7 +1123,11 @@ int dispatch_calend_screen (void *param){
 				set_update_period(1, INACTIVITY_PERIOD);
 				break;
 			}else if (option==1){
+				draw_calend_option_down_menu();
+				repaint_screen_lines(0, 176); 
+				option = 2;	
 			};
+
 		};
 		case GESTURE_SWIPE_DOWN: {	// свайп вниз
 			if (option==0){
@@ -1090,7 +1148,10 @@ int dispatch_calend_screen (void *param){
 				// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
 				set_update_period(1, INACTIVITY_PERIOD);
 				break;
-			}else if (option==1){
+			}else if (option==2){
+				draw_calend_option_menu(sy,vibro);
+				repaint_screen_lines(0, 176); 
+				option = 1;
 			};
 		};		
 		default:{	// что-то пошло не так...
