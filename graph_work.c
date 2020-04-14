@@ -22,8 +22,8 @@
 char option = 0;
 char sy;
 char sy_opt;
-char vibro;
-char vibro_opt;
+short vibra;
+short vibra_opt;
 char graphik = 1;
 char graphik_opt;
 //	структура меню экрана календаря
@@ -123,8 +123,8 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 		};
 	_memclr(&sy_opt, sizeof(sy_opt));
 	
-	ElfReadSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
-			vibro = vibro_opt;
+	ElfReadSettings(calend->proc->index_listed, &vibra_opt, 2, sizeof(vibra_opt));
+			 vibra = vibra_opt;
 			
 	draw_month(calend->day, calend->month, calend->year);
 }
@@ -343,7 +343,6 @@ if (isLeapYear(year)>0) day_month[2]=29;
 
 unsigned char d=wday(1,month, year);
 unsigned char m=month;
-//unsigned char y=year;
 
 	struct datetime_ datetime;
 	// получим текущую дату
@@ -501,19 +500,19 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
-								/*if  ((d + i) % 2 > 0 ){ //проверка на нечетность
+								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_FG]);
-								};*/
+								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
 									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG]); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
-									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(graphik == 2){
 								int i;
@@ -827,16 +826,16 @@ void key_press_calend_screen(){
 	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 };
 
-void draw_calend_option_menu(char sy,char vibro){
+void draw_calend_option_menu(char sy,short vibra){
 						char text_sy[5];
-						char text_vibro[5];
+						char text_vibra[5];
 						set_bg_color(COLOR_BLACK);
 						fill_screen_bg();
 						set_graph_callback_to_ram_1();
 						load_font();// подгружаем шрифты
 						set_fg_color(COLOR_WHITE);
 						//заголовок
-						text_out_center("Настройки", 88, 8); //надпись,ширина,высота
+						text_out_center("Настройки", 88, 7); //надпись,ширина,высота
 						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
 						//опция 1 - смещение дней
 						text_out_center("Смещение дней", 88, 29);
@@ -844,9 +843,9 @@ void draw_calend_option_menu(char sy,char vibro){
 						text_out_center(text_sy, 88, 50); //надпись,ширина,высота
 						//опция 2 - вибрация
 						text_out_center("Вибрация", 88, 85);
-						_sprintf(text_vibro, "%d", vibro);
-						text_out_center(text_vibro, 88, 120);
-						if (vibro==1){
+						_sprintf(text_vibra, "%d", vibra);
+						text_out_center(text_vibra, 88, 125);
+						if (vibra==1){
 							text_out_center("Вкл.", 88, 110);
 						} else {
 							text_out_center("Выкл.", 88, 110);
@@ -894,7 +893,7 @@ void draw_calend_option_down_menu(){
 						load_font();// подгружаем шрифты
 						set_fg_color(COLOR_WHITE);
 						//заголовок
-						text_out_center("Настройки", 88, 8); //надпись,ширина,высота
+						text_out_center("Настройки", 88, 7); //надпись,ширина,высота
 						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
 						//опция 1 - График
 						text_out_center("График", 88, 29);
@@ -952,7 +951,6 @@ int dispatch_calend_screen (void *param){
 	struct calend_ *	calend = *calend_p;			//	указатель на данные экрана
 	
 	struct calend_opt_ calend_opt;					//	опции календаря
-	//int sy;
 	struct datetime_ datetime;
 	// получим текущую дату
 	
@@ -968,7 +966,7 @@ int dispatch_calend_screen (void *param){
 		case GESTURE_CLICK: {
 			
 			// вибрация при любом нажатии на экран
-			if (vibro==1){
+			if (vibra==1){
 				vibrate (1, 40, 0);
 			};
 				if (option==0){
@@ -1015,54 +1013,54 @@ int dispatch_calend_screen (void *param){
 				}else if (option==1){
 						//смещение минус
 						if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if ( sy > 0 ){
 									sy = sy-1;
 								}
-								draw_calend_option_menu(sy,vibro);
+								draw_calend_option_menu(sy,vibra);
 								repaint_screen_lines(0, 176);
 						//смещение плюс
 						}else if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if ( sy < 3 ){
 									sy = sy+1;
 								}
-								draw_calend_option_menu(sy,vibro);
+								draw_calend_option_menu(sy,vibra);
 								repaint_screen_lines(0, 176);
 						//вибрация вЫключить
 						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(2,150,70);
 								}
-								if ( vibro > 0 ){
-									vibro = vibro-1;
+								if ( vibra > 0 ){
+									vibra = vibra-1;
 								}
-								draw_calend_option_menu(sy,vibro);
+								draw_calend_option_menu(sy,vibra);
 								repaint_screen_lines(0, 176);
 						//вибрация включить
 						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(2,150,70);
 								}
-								if ( vibro < 1 ){
-									vibro = vibro+1;
+								if ( vibra < 1 ){
+									vibra = vibra+1;
 								}
-								draw_calend_option_menu(sy,vibro);
+								draw_calend_option_menu(sy,vibra);
 								repaint_screen_lines(0, 176);
 						//кнопка отмены
 						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(1,70,0);
 								}
 								option = 0;
 								repaint_screen_lines(0, 176);
 						//кнопка сохранить
 						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >88) &&  ( gest->touch_pos_x < 176)){
-								if (vibro==1){
+								if (vibra==1){
 									vibrate(1,70,0);
 								}
 								option = 0;
@@ -1070,9 +1068,9 @@ int dispatch_calend_screen (void *param){
 								sy_opt = sy;
 								ElfWriteSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
 								_memclr(&sy_opt, sizeof(sy_opt));
-								
-								vibro_opt = vibro;
-								ElfWriteSettings(calend->proc->index_listed, &vibro_opt, 2, sizeof(vibro_opt));
+								// запишем настройки в флэш память
+								vibra_opt = vibra;
+								ElfWriteSettings(calend->proc->index_listed, &vibra_opt, 2, sizeof(vibra_opt));
 								//draw_month(day, calend->month, calend->year);
 								repaint_screen_lines(0, 176);
 						};		
@@ -1085,7 +1083,7 @@ int dispatch_calend_screen (void *param){
 		
 		case GESTURE_SWIPE_RIGHT: 	//	свайп направо
 				if (option==0){
-					draw_calend_option_menu(sy,vibro);
+					draw_calend_option_menu(sy,vibra);
 					repaint_screen_lines(0, 176); 
 					option = 1;
 				};
