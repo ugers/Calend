@@ -21,11 +21,8 @@
 //#define DEBUG_LOG
 char option=0;
 char sy;
-//char sy_opt;
 char vibra;
-//char vibra_opt;
-char graphik = 1;
-//char graphik_opt;
+char graphik;
 //	структура меню экрана календаря
 struct regmenu_ menu_calend_screen = {
 						55,
@@ -112,23 +109,12 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	
 	if (calend_opt.color_scheme < COLOR_SCHEME_COUNT){
 			calend->color_scheme = calend_opt.color_scheme;
-			vibra = calend_opt.vibra_opt;
-			sy = calend_opt.sy_opt;
 	}else{ 
 			calend->color_scheme = 0;
 	}
 	vibra = calend_opt.vibra_opt;
 	sy = calend_opt.sy_opt;
-	/*ElfReadSettings(calend->proc->index_listed, &sy_opt, 1, sizeof(sy_opt));
-		if ( sy_opt > 3 ){
-			sy = 0;
-		}else{
-			sy = sy_opt;
-		};
-	_memclr(&sy_opt, sizeof(sy_opt));*/
-	
-	/*ElfReadSettings(calend->proc->index_listed, &vibra_opt, 2, sizeof(vibra_opt));
-			 vibra = vibra_opt;*/
+	graphik = calend_opt.graphik_opt;
 			
 	draw_month(calend->day, calend->month, calend->year);
 }
@@ -423,9 +409,8 @@ for (unsigned i=1; (i<=7*6);i++){
 	} else if ( (datetime.year >=calend->year)&& (calend->year >= datetime.year)  && (d >= 1) ){
 				for(char nm = 1; nm <= 12; nm++){	
 					if (m == nm){
-						//sy = 0; //смещение всего графика работы на указанное число
 						if (m == 1){ 		//январь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -446,7 +431,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -470,7 +455,7 @@ for (unsigned i=1; (i<=7*6);i++){
 							};
 										
 						}else if  (m == 2 ){ //февраль
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -491,7 +476,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -516,7 +501,7 @@ for (unsigned i=1; (i<=7*6);i++){
 							};
 							
 						}else if  (m == 3 ){ //март
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -537,7 +522,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -560,7 +545,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 4 ){ //апрель
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -581,7 +566,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -604,7 +589,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 5 ){ //май
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -625,7 +610,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -648,7 +633,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 6 ){  //июнь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -669,7 +654,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -692,7 +677,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 7 ){ //июль
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -713,7 +698,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -736,7 +721,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 8 ){ //август
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -757,7 +742,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -780,7 +765,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 9 ){ //сентябрь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -801,7 +786,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -824,7 +809,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 10 ){ //октябрь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -845,7 +830,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -868,7 +853,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 11 ){ //ноябрь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -889,7 +874,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -912,7 +897,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};
 						}else if  (m == 12 ){ //декабрь
-							if(graphik == 1){
+							if(graphik == 0){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -933,7 +918,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
-							} else if(graphik == 2){
+							} else if(graphik == 1){
 								int i;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1064,7 +1049,7 @@ void key_press_calend_screen(){
 void draw_calend_option_menu(char sy,short vibra,char graphik){
 						char text_sy[5];
 						char text_timerexit[5];
-						char text_graphik[5];
+						//char text_graphik[5];
 						set_bg_color(COLOR_BLACK);
 						fill_screen_bg();
 						//смещение минус
@@ -1108,8 +1093,11 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 						}else if (option==2){
 							//опция 1 - График
 							text_out_center("График", 88, 29);
-							_sprintf(text_graphik, "%d", graphik);
-							text_out_center(text_graphik, 88, 50); //надпись,ширина,высота
+							if (graphik==0){
+								text_out_center("1/3", 88, 50);
+							} else {
+								text_out_center("2/2", 88, 50);
+							};
 							//опция 2 - Время выхода
 							text_out_center("Время выхода", 88, 85);
 							char timerexit = INACTIVITY_PERIOD/1000;
@@ -1275,6 +1263,7 @@ int dispatch_calend_screen (void *param){
 								//_memclr(&sy_opt, sizeof(sy_opt));
 								// запишем настройки в флэш память
 								calend_opt.vibra_opt = vibra;
+								calend_opt.graphik_opt = graphik;
 								ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 								//ElfWriteSettings(calend->proc->index_listed, &vibra_opt, 2, sizeof(vibra_opt));
 								//возвращаемся на начальный экран календаря
@@ -1287,10 +1276,48 @@ int dispatch_calend_screen (void *param){
 								repaint_screen_lines(0, 176);
 						};		
 				}else if (option==2){
-				//};
-				//if (option==2){
+						//График минус
+						if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
+								if (vibra==1){
+									vibrate(2,150,70);
+								}
+								if ( graphik > 0 ){
+									graphik = graphik-1;
+								}
+								draw_calend_option_menu(sy,vibra,graphik);
+								repaint_screen_lines(0, 176);
+						//График плюс
+						}else if (( gest->touch_pos_y >50) &&  ( gest->touch_pos_y < 80) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
+								if (vibra==1){
+									vibrate(2,150,70);
+								}
+								if ( graphik < 1 ){
+									graphik = graphik+1;
+								}
+								draw_calend_option_menu(sy,vibra,graphik);
+								repaint_screen_lines(0, 176);
+						//Таймаут минус
+						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 66)){
+								if (vibra==1){
+									vibrate(2,150,70);
+								}
+								if ( (INACTIVITY_PERIOD/1000) > 30 ){
+									INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
+								}
+								draw_calend_option_menu(sy,vibra,graphik);
+								repaint_screen_lines(0, 176);
+						//Таймаут плюс
+						}else if (( gest->touch_pos_y >90) &&  ( gest->touch_pos_y < 130) &&  ( gest->touch_pos_x >120) &&  ( gest->touch_pos_x < 176)){
+								if (vibra==1){
+									vibrate(2,150,70);
+								}
+								if ( (INACTIVITY_PERIOD/1000) < 300 ){
+									INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
+								}
+								draw_calend_option_menu(sy,vibra,graphik);
+								repaint_screen_lines(0, 176);
 						//кнопка отмены
-						if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
+						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
 								if (vibra==1){
 									vibrate(1,70,0);
 								}
@@ -1316,6 +1343,7 @@ int dispatch_calend_screen (void *param){
 								//_memclr(&sy_opt, sizeof(sy_opt));
 								// запишем настройки в флэш память
 								calend_opt.vibra_opt = vibra;
+								calend_opt.graphik_opt = graphik;
 								ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 								//ElfWriteSettings(calend->proc->index_listed, &vibra_opt, 2, sizeof(vibra_opt));
 								//возвращаемся на начальный экран календаря

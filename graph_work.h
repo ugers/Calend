@@ -63,13 +63,14 @@
 #endif
 
 
-#define INACTIVITY_PERIOD		30000		//	время по прошествии которого выходим
+unsigned int INACTIVITY_PERIOD = 30000;		//	время по прошествии которого выходим, 30 секунд
 
 // сохраняемые опции календаря
 struct calend_opt_ {
 		unsigned char	color_scheme;	//	цветовая схема
-		char sy_opt; //смещение графика
-		char vibra_opt; //вибрация
+		unsigned char sy_opt; //смещение графика
+		unsigned char vibra_opt; //вибрация
+		unsigned char graphik_opt; //график работы
 };
 
 // текущие данные просматриваемого/редактируемого календаря
