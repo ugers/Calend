@@ -1079,11 +1079,11 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 						text_out_center("Настройки", 88, 7); //надпись,ширина,высота
 						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
 						if (option==1){
-							//опция 1 - смещение дней
+							//опция 1 - Смещение дней
 							text_out_center("Смещение дней", 88, 29);
 							_sprintf(text_sy, "%d", sy);
 							text_out_center(text_sy, 88, 50); //надпись,ширина,высота
-							//опция 2 - вибрация
+							//опция 2 - Вибрация
 							text_out_center("Вибрация", 88, 85);
 							if (vibra==1){
 								text_out_center("Вкл.", 88, 110);
@@ -1099,24 +1099,24 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 								text_out_center("2/2", 88, 50);
 							};
 							//опция 2 - Время выхода
-							text_out_center("Время выхода", 88, 85);
+							text_out_center("Время выхода,сек.", 88, 85);
 							char timerexit = INACTIVITY_PERIOD/1000;
 							_sprintf(text_timerexit, "%d", timerexit);
 							text_out_center(text_timerexit, 88, 110); //надпись,ширина,высота
 						};
-						//смещение минус
+						//опция 1 минус
 						set_bg_color(COLOR_RED);
 						set_fg_color(COLOR_WHITE);
-						text_out_center("-", 25, 55); //надпись,ширина,высота
-						//смещение плюс
+						text_out_center("←", 25, 55); //надпись,ширина,высота
+						//опция 1 плюс
 						set_bg_color(COLOR_GREEN);
 						set_fg_color(COLOR_WHITE);
-						text_out_center("+", 152, 55); //надпись,ширина,высота
-						//вибрация вЫключить
+						text_out_center("→", 152, 55); //надпись,ширина,высота
+						//опция 2 минус
 						set_bg_color(COLOR_RED);
 						set_fg_color(COLOR_WHITE);
 						text_out_center("←", 25, 110); //надпись,ширина,высота
-						//вибрация включить
+						//опция 2 минус
 						set_bg_color(COLOR_GREEN);
 						set_fg_color(COLOR_WHITE);
 						text_out_center("→", 152, 110); //надпись,ширина,высота
@@ -1415,7 +1415,20 @@ int dispatch_calend_screen (void *param){
 						} /// switch (gest->gesture)
 					}
 				break;
-				};
+			};
+				/*if (option > 1){
+					option = 1;
+					draw_calend_option_menu(sy,vibra,graphik);
+					repaint_screen_lines(0, 176);
+				}else{
+					option = 0;
+					if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
+						day = datetime.day;
+					}else{	
+						day = 0;
+					}
+					draw_month(day, calend->month, calend->year);
+				};*/
 		};	//	case GESTURE_SWIPE_LEFT:
 		
 		
@@ -1460,10 +1473,6 @@ int dispatch_calend_screen (void *param){
 				// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
 				set_update_period(1, INACTIVITY_PERIOD);
 				break;
-			/*}else if (option==2){
-				draw_calend_option_menu(sy,vibro);
-				repaint_screen_lines(0, 176); 
-				option = 1;*/
 			};
 		};		
 		default:{	// что-то пошло не так...
