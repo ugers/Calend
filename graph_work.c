@@ -231,7 +231,6 @@ char *monthname_es[] = {
 		 "Mayo", 		"Junio", 	"Julio",		"Agosto", 	
 		 "Septiembre", 	"Octubre", 	"Noviembre", 	"Diciembre"};
 
-
 unsigned char day_month[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 char**	weekday_string;
@@ -1047,80 +1046,125 @@ void key_press_calend_screen(){
 };
 
 void draw_calend_option_menu(char sy,short vibra,char graphik){
-						char text_sy[5];
-						char text_timerexit[5];
-						//char text_graphik[5];
-						set_bg_color(COLOR_BLACK);
-						fill_screen_bg();
-						//смещение минус
-						set_fg_color (COLOR_RED);
-						draw_filled_rect(0, 50, 50, 80);//начало X/начало У/конец Х/конец У
-						//смещение плюс
-						set_fg_color (COLOR_GREEN);
-						draw_filled_rect(126, 50, 176, 80);//начало X/начало У/конец Х/конец У
-						//вибрация вЫключить
-						set_fg_color (COLOR_RED);
-						draw_filled_rect(0, 105, 50, 135);//начало X/начало У/конец Х/конец У
-						//вибрация включить
-						set_fg_color (COLOR_GREEN);
-						draw_filled_rect(126, 105, 176, 135);//начало X/начало У/конец Х/конец У
-						//кнопка отмены
-						set_fg_color (COLOR_RED);
-						draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
-						show_res_by_id(ICON_CANCEL_RED, 35, 153); 
-						// кнопка сохранить
-						set_fg_color (COLOR_GREEN);
-						draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
-						show_res_by_id(ICON_OK_GREEN, 125, 153); 
-						set_graph_callback_to_ram_1();
-						//load_font();// подгружаем шрифты
-						set_fg_color(COLOR_WHITE);
-						//заголовок
-						text_out_center("Настройки", 88, 7); //надпись,ширина,высота
-						draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
-						if (option==1){
-							//опция 1 - Смещение дней
-							text_out_center("Смещение дней", 88, 29);
-							_sprintf(text_sy, "%d", sy);
-							text_out_center(text_sy, 88, 50); //надпись,ширина,высота
-							//опция 2 - Вибрация
-							text_out_center("Вибрация", 88, 85);
-							if (vibra==1){
-								text_out_center("Вкл.", 88, 110);
-							} else {
-								text_out_center("Выкл.", 88, 110);
-							};
-						}else if (option==2){
-							//опция 1 - График
-							text_out_center("График", 88, 29);
-							if (graphik==0){
-								text_out_center("1/3", 88, 50);
-							} else {
-								text_out_center("2/2", 88, 50);
-							};
-							//опция 2 - Время выхода
-							text_out_center("Время выхода,сек.", 88, 85);
-							char timerexit = INACTIVITY_PERIOD/1000;
-							_sprintf(text_timerexit, "%d", timerexit);
-							text_out_center(text_timerexit, 88, 110); //надпись,ширина,высота
-						};
-						//опция 1 минус
-						set_bg_color(COLOR_RED);
-						set_fg_color(COLOR_WHITE);
-						text_out_center("←", 25, 55); //надпись,ширина,высота
-						//опция 1 плюс
-						set_bg_color(COLOR_GREEN);
-						set_fg_color(COLOR_WHITE);
-						text_out_center("→", 152, 55); //надпись,ширина,высота
-						//опция 2 минус
-						set_bg_color(COLOR_RED);
-						set_fg_color(COLOR_WHITE);
-						text_out_center("←", 25, 110); //надпись,ширина,высота
-						//опция 2 минус
-						set_bg_color(COLOR_GREEN);
-						set_fg_color(COLOR_WHITE);
-						text_out_center("→", 152, 110); //надпись,ширина,высота
-						repaint_screen_lines(0, 176);		
+	
+	char *settings_string_ru[] = {	
+			 "Настройки", "Смещение дней", "Вибрация", 	"Вкл.",
+			 "Выкл.", "График", "Время выхода,сек."};
+
+	char *settings_string_en[] = {	
+			 "Settings", "Days offset", "Vibration", "On",
+			 "Off", "Timetable", "Exit time,sec."};
+
+	char *settings_string_it[] = {	
+			"Impostazioni", "Offset giorno", "Vibrazione", "On",
+			"Off", "Schedule", "Ora di uscita, sec."};
+			 
+	char *settings_string_fr[] = {	
+			"Paramètres", "Décalage du jour", "Vibreur", "On",
+			"Off", "Schedule", "Exit time, sec."};
+			 
+	char *settings_string_es[] = {	
+			"Configuración", "Compensación de día", "Vibrar", "On",
+			"Off", "Programación", "Tiempo de salida,seg."};
+			
+	char**	settings_string;
+	
+	switch (get_selected_locale()){
+		case locale_ru_RU:{
+			settings_string = settings_string_ru;
+			break;
+		}
+		case locale_it_IT:{
+			settings_string = settings_string_it;
+			break;
+		}
+		case locale_fr_FR:{
+			settings_string = settings_string_fr;
+			break;
+		}
+		case locale_es_ES:{
+			settings_string = settings_string_es;
+			break;
+		}
+		default:{
+			settings_string = settings_string_en;
+			break;
+		}
+	};
+		char text_sy[5];
+		char text_timerexit[5];
+		//char text_graphik[5];
+		set_bg_color(COLOR_BLACK);
+		fill_screen_bg();
+		//смещение минус
+		set_fg_color (COLOR_RED);
+		draw_filled_rect(0, 50, 50, 80);//начало X/начало У/конец Х/конец У
+		//смещение плюс
+		set_fg_color (COLOR_GREEN);
+		draw_filled_rect(126, 50, 176, 80);//начало X/начало У/конец Х/конец У
+		//вибрация вЫключить
+		set_fg_color (COLOR_RED);
+		draw_filled_rect(0, 105, 50, 135);//начало X/начало У/конец Х/конец У
+		//вибрация включить
+		set_fg_color (COLOR_GREEN);
+		draw_filled_rect(126, 105, 176, 135);//начало X/начало У/конец Х/конец У
+		//кнопка отмены
+		set_fg_color (COLOR_RED);
+		draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
+		show_res_by_id(ICON_CANCEL_RED, 35, 153); 
+		// кнопка сохранить
+		set_fg_color (COLOR_GREEN);
+		draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
+		show_res_by_id(ICON_OK_GREEN, 125, 153); 
+		set_graph_callback_to_ram_1();
+		//load_font();// подгружаем шрифты
+		set_fg_color(COLOR_WHITE);
+		//заголовок
+		text_out_center(settings_string[0], 88, 7); //надпись,ширина,высота
+		draw_horizontal_line(24, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
+		if (option==1){
+			//опция 1 - Смещение дней
+			text_out_center(settings_string[1], 88, 29);
+			_sprintf(text_sy, "%d", sy);
+			text_out_center(text_sy, 88, 50); //надпись,ширина,высота
+			//опция 2 - Вибрация
+			text_out_center(settings_string[2], 88, 85);
+			if (vibra==1){
+				text_out_center(settings_string[3], 88, 110);
+			} else {
+				text_out_center(settings_string[4], 88, 110);
+			};
+		}else if (option==2){
+			//опция 1 - График
+			text_out_center(settings_string[5], 88, 29);
+			if (graphik==0){
+				text_out_center("1/3", 88, 50);
+			} else {
+				text_out_center("2/2", 88, 50);
+			};
+			//опция 2 - Время выхода
+			text_out_center(settings_string[6], 88, 85);
+			char timerexit = INACTIVITY_PERIOD/1000;
+			_sprintf(text_timerexit, "%d", timerexit);
+			text_out_center(text_timerexit, 88, 110); //надпись,ширина,высота
+		};
+		//опция 1 минус
+		set_bg_color(COLOR_RED);
+		set_fg_color(COLOR_WHITE);
+		text_out_center("←", 25, 55); //надпись,ширина,высота
+		//опция 1 плюс
+		set_bg_color(COLOR_GREEN);
+		set_fg_color(COLOR_WHITE);
+		text_out_center("→", 152, 55); //надпись,ширина,высота
+		//опция 2 минус
+		set_bg_color(COLOR_RED);
+		set_fg_color(COLOR_WHITE);
+		text_out_center("←", 25, 110); //надпись,ширина,высота
+		//опция 2 минус
+		set_bg_color(COLOR_GREEN);
+		set_fg_color(COLOR_WHITE);
+		text_out_center("→", 152, 110); //надпись,ширина,высота
+		repaint_screen_lines(0, 176);		
 };
 
 void calend_screen_job(){
