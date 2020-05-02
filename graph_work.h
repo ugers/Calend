@@ -7,23 +7,25 @@
 #define __CALEND_H__
 
 // Значения цветовой схемы 
-#define CALEND_COLOR_BG					0	//	фон  календаря
-#define CALEND_COLOR_MONTH				1	//	цвет названия текущего месяца
-#define CALEND_COLOR_YEAR				2	//	цвет текущего года
-#define CALEND_COLOR_WORK_NAME			3	//	цвет названий дней будни
-#define CALEND_COLOR_HOLY_NAME_BG		4	// 	фон	 названий дней выходные
-#define CALEND_COLOR_HOLY_NAME_FG		5	//	цвет названий дней выходные
-#define CALEND_COLOR_SEPAR				6	//	цвет разделителей календаря
-#define CALEND_COLOR_NOT_CUR_WORK		7	//	цвет чисел НЕ текущего месяца будни
-#define CALEND_COLOR_NOT_CUR_HOLY_BG	8	//	фон  чисел НЕ текущего месяца выходные
-#define CALEND_COLOR_NOT_CUR_HOLY_FG	9	//	цвет чисел НЕ текущего месяца выходные
-#define CALEND_COLOR_CUR_WORK			10	//	цвет чисел текущего месяца будни
-#define CALEND_COLOR_CUR_HOLY_BG		11	//	фон  чисел текущего месяца выходные
-#define CALEND_COLOR_CUR_HOLY_FG		12	//	цвет чисел текущего месяца выходные
-#define CALEND_COLOR_TODAY_BG			13	//	цвет чисел текущего дня
-#define CALEND_COLOR_TODAY_FG			14	//	фон  чисел текущего дня
-#define CALEND_COLOR_WORKDAY_BG			15	//	цвет чисел рабочего дня
-#define CALEND_COLOR_WORKDAY_FG			16	//	фон  чисел рабочего дня
+#define CALEND_COLOR_BG					0	//	фон  календаря;
+#define CALEND_COLOR_MONTH				1	//	цвет названия текущего месяца;
+#define CALEND_COLOR_YEAR				2	//	цвет текущего года;
+#define CALEND_COLOR_WORK_NAME			3	//	цвет названий дней будни;
+#define CALEND_COLOR_HOLY_NAME_BG		4	// 	фон	 названий дней выходные;
+#define CALEND_COLOR_HOLY_NAME_FG		5	//	цвет названий дней выходные;
+#define CALEND_COLOR_SEPAR				6	//	цвет разделителей календаря;
+#define CALEND_COLOR_NOT_CUR_WORK		7	//	цвет чисел НЕ текущего месяца будни;
+#define CALEND_COLOR_NOT_CUR_HOLY_BG	8	//	фон  чисел НЕ текущего месяца выходные;
+#define CALEND_COLOR_NOT_CUR_HOLY_FG	9	//	цвет чисел НЕ текущего месяца выходные;
+#define CALEND_COLOR_CUR_WORK			10	//	цвет чисел текущего месяца будни;
+#define CALEND_COLOR_CUR_HOLY_BG		11	//	фон  чисел текущего месяца выходные;
+#define CALEND_COLOR_CUR_HOLY_FG		12	//	цвет чисел текущего месяца выходные;
+#define CALEND_COLOR_TODAY_BG			13	//	цвет чисел текущего дня;
+#define CALEND_COLOR_TODAY_FG			14	//	фон  чисел текущего дня;
+#define CALEND_COLOR_WORKDAY_BG			15	//	фон  чисел рабочего дня;
+#define CALEND_COLOR_WORKDAY_HOLY_BG	16	//	фон  чисел текущего месяца выходные при работе;
+#define CALEND_COLOR_WORKDAY_DAY_BG		17	//фон  чисел рабочего дня в день;
+#define CALEND_COLOR_WORKDAY_NIGHT_BG	18	//фон  чисел рабочего дня в ночь;
 
 // количество цыетовых схем
 #define COLOR_SCHEME_COUNT	5

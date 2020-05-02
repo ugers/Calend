@@ -200,8 +200,8 @@ Name             Origin             Length             Attributes
 Linker script and memory map
 
 LOAD graph_work.o
-LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
-LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
+LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
+LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
 LOAD ..\libbip\libbip.a
                 [!provide]                PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x8000))
                 0x00008000                . = SEGMENT_START ("text-segment", 0x8000)
@@ -248,9 +248,9 @@ LOAD ..\libbip\libbip.a
 .rela.init
  *(.rela.init)
 
-.rel.text       0x00008060      0x568
+.rel.text       0x00008060      0x590
  *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
- .rel.text      0x00008060      0x568 graph_work.o
+ .rel.text      0x00008060      0x590 graph_work.o
 
 .rela.text
  *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
@@ -268,18 +268,18 @@ LOAD ..\libbip\libbip.a
  *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
 
 .rel.data.rel.ro
-                0x000085c8        0x0
+                0x000085f0        0x0
  *(.rel.data.rel.ro .rel.data.rel.ro.* .rel.gnu.linkonce.d.rel.ro.*)
  .rel.data.rel.ro
-                0x000085c8        0x0 graph_work.o
+                0x000085f0        0x0 graph_work.o
 
 .rela.data.rel.ro
  *(.rela.data.rel.ro .rela.data.rel.ro.* .rela.gnu.linkonce.d.rel.ro.*)
 
-.rel.data       0x000085c8       0x20
+.rel.data       0x000085f0       0x20
  *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
  .rel.data.rel.menu_calend_screen
-                0x000085c8       0x20 graph_work.o
+                0x000085f0       0x20 graph_work.o
 
 .rela.data
  *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
@@ -308,34 +308,34 @@ LOAD ..\libbip\libbip.a
 .rela.dtors
  *(.rela.dtors)
 
-.rel.got        0x000085e8       0x48
+.rel.got        0x00008610       0x48
  *(.rel.got)
- .rel.got       0x000085e8       0x48 graph_work.o
+ .rel.got       0x00008610       0x48 graph_work.o
 
 .rela.got
  *(.rela.got)
 
-.rel.bss        0x00008630        0x0
+.rel.bss        0x00008658        0x0
  *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
- .rel.bss       0x00008630        0x0 graph_work.o
+ .rel.bss       0x00008658        0x0 graph_work.o
 
 .rela.bss
  *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
 
-.rel.iplt       0x00008630        0x0
+.rel.iplt       0x00008658        0x0
                 [!provide]                PROVIDE (__rel_iplt_start = .)
  *(.rel.iplt)
- .rel.iplt      0x00008630        0x0 graph_work.o
+ .rel.iplt      0x00008658        0x0 graph_work.o
                 [!provide]                PROVIDE (__rel_iplt_end = .)
 
-.rela.iplt      0x00008630        0x0
+.rela.iplt      0x00008658        0x0
                 [!provide]                PROVIDE (__rela_iplt_start = .)
  *(.rela.iplt)
                 [!provide]                PROVIDE (__rela_iplt_end = .)
 
-.rel.plt        0x00008630        0x0
+.rel.plt        0x00008658        0x0
  *(.rel.plt)
- .rel.plt       0x00008630        0x0 graph_work.o
+ .rel.plt       0x00008658        0x0 graph_work.o
 
 .rela.plt
  *(.rela.plt)
@@ -343,163 +343,163 @@ LOAD ..\libbip\libbip.a
 .init
  *(SORT_NONE(.init))
 
-.plt            0x00008630        0x0
+.plt            0x00008658        0x0
  *(.plt)
- .plt           0x00008630        0x0 graph_work.o
+ .plt           0x00008658        0x0 graph_work.o
 
-.iplt           0x00008630        0x0
+.iplt           0x00008658        0x0
  *(.iplt)
- .iplt          0x00008630        0x0 graph_work.o
+ .iplt          0x00008658        0x0 graph_work.o
 
-.text           0x00008630     0x15e4
+.text           0x00008658     0x210c
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
  .text.startup.main
-                0x00008630        0xa graph_work.o
-                0x00008630                main
+                0x00008658        0xa graph_work.o
+                0x00008658                main
  *(.text.hot .text.hot.*)
  *(.text .stub .text.* .gnu.linkonce.t.*)
- *fill*         0x0000863a        0x2 
- .text          0x0000863c      0x2b0 graph_work.o
+ *fill*         0x00008662        0x2 
+ .text          0x00008664      0x2c4 graph_work.o
  .text.key_press_calend_screen
-                0x000088ec       0x2c graph_work.o
-                0x000088ec                key_press_calend_screen
+                0x00008928       0x2c graph_work.o
+                0x00008928                key_press_calend_screen
  .text.calend_screen_job
-                0x00008918       0x2c graph_work.o
-                0x00008918                calend_screen_job
- .text.wday     0x00008944       0x5e graph_work.o
-                0x00008944                wday
+                0x00008954       0x2c graph_work.o
+                0x00008954                calend_screen_job
+ .text.wday     0x00008980       0x5e graph_work.o
+                0x00008980                wday
  .text.isLeapYear
-                0x000089a2       0x30 graph_work.o
-                0x000089a2                isLeapYear
- *fill*         0x000089d2        0x2 
+                0x000089de       0x30 graph_work.o
+                0x000089de                isLeapYear
+ *fill*         0x00008a0e        0x2 
  .text.draw_month
-                0x000089d4      0x8a0 graph_work.o
-                0x000089d4                draw_month
+                0x00008a10     0x1338 graph_work.o
+                0x00008a10                draw_month
  .text.show_calend_screen
-                0x00009274      0x104 graph_work.o
-                0x00009274                show_calend_screen
+                0x00009d48      0x104 graph_work.o
+                0x00009d48                show_calend_screen
  .text.draw_calend_option_menu
-                0x00009378      0x2a4 graph_work.o
-                0x00009378                draw_calend_option_menu
+                0x00009e4c      0x2f4 graph_work.o
+                0x00009e4c                draw_calend_option_menu
  .text.dispatch_calend_screen
-                0x0000961c      0x448 graph_work.o
-                0x0000961c                dispatch_calend_screen
- .text          0x00009a64        0xc ..\libbip\libbip.a(import.o)
-                0x00009a64                _start
+                0x0000a140      0x474 graph_work.o
+                0x0000a140                dispatch_calend_screen
+ .text          0x0000a5b4        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5b4                _start
  .text.text_out
-                0x00009a70        0xc ..\libbip\libbip.a(import.o)
-                0x00009a70                text_out
+                0x0000a5c0        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5c0                text_out
  .text.text_out_center
-                0x00009a7c        0xc ..\libbip\libbip.a(import.o)
-                0x00009a7c                text_out_center
+                0x0000a5cc        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5cc                text_out_center
  .text.text_width
-                0x00009a88        0xc ..\libbip\libbip.a(import.o)
-                0x00009a88                text_width
+                0x0000a5d8        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5d8                text_width
  .text.get_text_height
-                0x00009a94        0xc ..\libbip\libbip.a(import.o)
-                0x00009a94                get_text_height
+                0x0000a5e4        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5e4                get_text_height
  .text.set_bg_color
-                0x00009aa0        0xc ..\libbip\libbip.a(import.o)
-                0x00009aa0                set_bg_color
+                0x0000a5f0        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5f0                set_bg_color
  .text.set_fg_color
-                0x00009aac        0xc ..\libbip\libbip.a(import.o)
-                0x00009aac                set_fg_color
+                0x0000a5fc        0xc ..\libbip\libbip.a(import.o)
+                0x0000a5fc                set_fg_color
  .text.draw_horizontal_line
-                0x00009ab8        0xc ..\libbip\libbip.a(import.o)
-                0x00009ab8                draw_horizontal_line
+                0x0000a608        0xc ..\libbip\libbip.a(import.o)
+                0x0000a608                draw_horizontal_line
  .text.draw_rect
-                0x00009ac4        0xc ..\libbip\libbip.a(import.o)
-                0x00009ac4                draw_rect
+                0x0000a614        0xc ..\libbip\libbip.a(import.o)
+                0x0000a614                draw_rect
  .text.draw_filled_rect
-                0x00009ad0        0xc ..\libbip\libbip.a(import.o)
-                0x00009ad0                draw_filled_rect
+                0x0000a620        0xc ..\libbip\libbip.a(import.o)
+                0x0000a620                draw_filled_rect
  .text.show_res_by_id
-                0x00009adc        0xc ..\libbip\libbip.a(import.o)
-                0x00009adc                show_res_by_id
+                0x0000a62c        0xc ..\libbip\libbip.a(import.o)
+                0x0000a62c                show_res_by_id
  .text.fill_screen_bg
-                0x00009ae8        0xc ..\libbip\libbip.a(import.o)
-                0x00009ae8                fill_screen_bg
+                0x0000a638        0xc ..\libbip\libbip.a(import.o)
+                0x0000a638                fill_screen_bg
  .text.set_graph_callback_to_ram_1
-                0x00009af4        0xc ..\libbip\libbip.a(import.o)
-                0x00009af4                set_graph_callback_to_ram_1
+                0x0000a644        0xc ..\libbip\libbip.a(import.o)
+                0x0000a644                set_graph_callback_to_ram_1
  .text.draw_filled_rect_bg
-                0x00009b00        0xc ..\libbip\libbip.a(import.o)
-                0x00009b00                draw_filled_rect_bg
+                0x0000a650        0xc ..\libbip\libbip.a(import.o)
+                0x0000a650                draw_filled_rect_bg
  .text.repaint_screen_lines
-                0x00009b0c        0xc ..\libbip\libbip.a(import.o)
-                0x00009b0c                repaint_screen_lines
+                0x0000a65c        0xc ..\libbip\libbip.a(import.o)
+                0x0000a65c                repaint_screen_lines
  .text.reg_menu
-                0x00009b18        0xc ..\libbip\libbip.a(import.o)
-                0x00009b18                reg_menu
+                0x0000a668        0xc ..\libbip\libbip.a(import.o)
+                0x0000a668                reg_menu
  .text.show_menu_animate
-                0x00009b24        0xc ..\libbip\libbip.a(import.o)
-                0x00009b24                show_menu_animate
+                0x0000a674        0xc ..\libbip\libbip.a(import.o)
+                0x0000a674                show_menu_animate
  .text.load_font
-                0x00009b30        0xc ..\libbip\libbip.a(import.o)
-                0x00009b30                load_font
+                0x0000a680        0xc ..\libbip\libbip.a(import.o)
+                0x0000a680                load_font
  .text._sprintf
-                0x00009b3c        0xc ..\libbip\libbip.a(import.o)
-                0x00009b3c                _sprintf
- .text._memclr  0x00009b48        0xc ..\libbip\libbip.a(import.o)
-                0x00009b48                _memclr
+                0x0000a68c        0xc ..\libbip\libbip.a(import.o)
+                0x0000a68c                _sprintf
+ .text._memclr  0x0000a698        0xc ..\libbip\libbip.a(import.o)
+                0x0000a698                _memclr
  .text.set_update_period
-                0x00009b54        0xc ..\libbip\libbip.a(import.o)
-                0x00009b54                set_update_period
+                0x0000a6a4        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6a4                set_update_period
  .text.set_display_state_value
-                0x00009b60        0xc ..\libbip\libbip.a(import.o)
-                0x00009b60                set_display_state_value
- .text.vibrate  0x00009b6c        0xc ..\libbip\libbip.a(import.o)
-                0x00009b6c                vibrate
+                0x0000a6b0        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6b0                set_display_state_value
+ .text.vibrate  0x0000a6bc        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6bc                vibrate
  .text.dispatch_left_side_menu
-                0x00009b78        0xc ..\libbip\libbip.a(import.o)
-                0x00009b78                dispatch_left_side_menu
+                0x0000a6c8        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6c8                dispatch_left_side_menu
  .text.get_left_side_menu_active
-                0x00009b84        0xc ..\libbip\libbip.a(import.o)
-                0x00009b84                get_left_side_menu_active
+                0x0000a6d4        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6d4                get_left_side_menu_active
  .text.get_current_date_time
-                0x00009b90        0xc ..\libbip\libbip.a(import.o)
-                0x00009b90                get_current_date_time
+                0x0000a6e0        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6e0                get_current_date_time
  .text.show_watchface
-                0x00009b9c        0xc ..\libbip\libbip.a(import.o)
-                0x00009b9c                show_watchface
+                0x0000a6ec        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6ec                show_watchface
  .text.get_selected_locale
-                0x00009ba8        0xc ..\libbip\libbip.a(import.o)
-                0x00009ba8                get_selected_locale
+                0x0000a6f8        0xc ..\libbip\libbip.a(import.o)
+                0x0000a6f8                get_selected_locale
  .text.pvPortMalloc
-                0x00009bb4        0xc ..\libbip\libbip.a(import.o)
-                0x00009bb4                pvPortMalloc
+                0x0000a704        0xc ..\libbip\libbip.a(import.o)
+                0x0000a704                pvPortMalloc
  .text.elf_finish
-                0x00009bc0        0xc ..\libbip\libbip.a(import.o)
-                0x00009bc0                elf_finish
+                0x0000a710        0xc ..\libbip\libbip.a(import.o)
+                0x0000a710                elf_finish
  .text.ElfReadSettings
-                0x00009bcc        0xc ..\libbip\libbip.a(import.o)
-                0x00009bcc                ElfReadSettings
+                0x0000a71c        0xc ..\libbip\libbip.a(import.o)
+                0x0000a71c                ElfReadSettings
  .text.ElfWriteSettings
-                0x00009bd8        0xc ..\libbip\libbip.a(import.o)
-                0x00009bd8                ElfWriteSettings
+                0x0000a728        0xc ..\libbip\libbip.a(import.o)
+                0x0000a728                ElfWriteSettings
  .text.get_proc_by_addr
-                0x00009be4        0xc ..\libbip\libbip.a(import.o)
-                0x00009be4                get_proc_by_addr
+                0x0000a734        0xc ..\libbip\libbip.a(import.o)
+                0x0000a734                get_proc_by_addr
  .text.get_var_menu_overlay
-                0x00009bf0        0xc ..\libbip\libbip.a(import.o)
-                0x00009bf0                get_var_menu_overlay
+                0x0000a740        0xc ..\libbip\libbip.a(import.o)
+                0x0000a740                get_var_menu_overlay
  .text.get_ptr_show_menu_func
-                0x00009bfc        0xc ..\libbip\libbip.a(import.o)
-                0x00009bfc                get_ptr_show_menu_func
+                0x0000a74c        0xc ..\libbip\libbip.a(import.o)
+                0x0000a74c                get_ptr_show_menu_func
  .text.get_ptr_temp_buf_2
-                0x00009c08        0xc ..\libbip\libbip.a(import.o)
-                0x00009c08                get_ptr_temp_buf_2
+                0x0000a758        0xc ..\libbip\libbip.a(import.o)
+                0x0000a758                get_ptr_temp_buf_2
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x00009c14        0x0 linker stubs
+ .glue_7t       0x0000a764        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x00009c14        0x0 linker stubs
+ .glue_7        0x0000a764        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x00009c14        0x0 linker stubs
+ .vfp11_veneer  0x0000a764        0x0 linker stubs
  *(.v4_bx)
- .v4_bx         0x00009c14        0x0 linker stubs
+ .v4_bx         0x0000a764        0x0 linker stubs
 
 .fini
  *(SORT_NONE(.fini))
@@ -507,19 +507,19 @@ LOAD ..\libbip\libbip.a
                 [!provide]                PROVIDE (_etext = .)
                 [!provide]                PROVIDE (etext = .)
 
-.rodata         0x00009c14      0x468
+.rodata         0x0000a764      0x491
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.str1.1
-                0x00009c14      0x3ec graph_work.o
-                                0x3f1 (size before relaxing)
+                0x0000a764      0x3ff graph_work.o
+                                0x404 (size before relaxing)
  .rodata.draw_month.str1.1
-                0x0000a000       0x12 graph_work.o
+                0x0000ab63       0x12 graph_work.o
  .rodata.draw_calend_option_menu.str1.1
-                0x0000a012        0x8 graph_work.o
-                                  0xb (size before relaxing)
- .rodata        0x0000a01a        0xd graph_work.o
+                0x0000ab75       0x14 graph_work.o
+                                 0x17 (size before relaxing)
+ .rodata        0x0000ab89        0xd graph_work.o
  .rodata.short_color_scheme.5941
-                0x0000a027       0x55 graph_work.o
+                0x0000ab96       0x5f graph_work.o
 
 .rodata1
  *(.rodata1)
@@ -548,7 +548,7 @@ LOAD ..\libbip\libbip.a
 
 .exception_ranges
  *(.exception_ranges*)
-                0x0000a07c                . = .
+                0x0000abf5                . = .
 
 .eh_frame
  *(.eh_frame)
@@ -563,7 +563,7 @@ LOAD ..\libbip\libbip.a
 .exception_ranges
  *(.exception_ranges*)
 
-.tdata          0x0000a07c        0x0
+.tdata          0x0000abf5        0x0
                 [!provide]                PROVIDE (__tdata_start = .)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
 
@@ -571,18 +571,18 @@ LOAD ..\libbip\libbip.a
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x0000a07c        0x0
+.preinit_array  0x0000abf5        0x0
                 [!provide]                PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000a07c        0x0
+.init_array     0x0000abf5        0x0
                 [!provide]                PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000a07c        0x0
+.fini_array     0x0000abf5        0x0
                 [!provide]                PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -605,63 +605,63 @@ LOAD ..\libbip\libbip.a
 .jcr
  *(.jcr)
 
-.data.rel.ro    0x0000a07c        0x0
+.data.rel.ro    0x0000abf5        0x0
  *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
  *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*)
- .data.rel.ro   0x0000a07c        0x0 graph_work.o
+ .data.rel.ro   0x0000abf5        0x0 graph_work.o
 
-.dynamic        0x0000a07c       0x80
+.dynamic        0x0000abf8       0x80
  *(.dynamic)
- .dynamic       0x0000a07c       0x80 graph_work.o
-                0x0000a07c                _DYNAMIC
+ .dynamic       0x0000abf8       0x80 graph_work.o
+                0x0000abf8                _DYNAMIC
 
-.got            0x0000a0fc       0x30
+.got            0x0000ac78       0x30
  *(.got.plt)
- .got.plt       0x0000a0fc        0xc graph_work.o
-                0x0000a0fc                _GLOBAL_OFFSET_TABLE_
+ .got.plt       0x0000ac78        0xc graph_work.o
+                0x0000ac78                _GLOBAL_OFFSET_TABLE_
  *(.igot.plt)
- .igot.plt      0x0000a108        0x0 graph_work.o
+ .igot.plt      0x0000ac84        0x0 graph_work.o
  *(.got)
- .got           0x0000a108       0x24 graph_work.o
+ .got           0x0000ac84       0x24 graph_work.o
  *(.igot)
 
-.data           0x0000a12c       0x24
-                0x0000a12c                __data_start = .
+.data           0x0000aca8       0x24
+                0x0000aca8                __data_start = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.INACTIVITY_PERIOD
-                0x0000a12c        0x4 graph_work.o
-                0x0000a12c                INACTIVITY_PERIOD
+                0x0000aca8        0x4 graph_work.o
+                0x0000aca8                INACTIVITY_PERIOD
  .data.rel.menu_calend_screen
-                0x0000a130       0x20 graph_work.o
-                0x0000a130                menu_calend_screen
+                0x0000acac       0x20 graph_work.o
+                0x0000acac                menu_calend_screen
 
 .data1
  *(.data1)
-                0x0000a150                _edata = .
+                0x0000accc                _edata = .
                 [!provide]                PROVIDE (edata = .)
-                0x0000a150                . = .
-                0x0000a150                __bss_start = .
-                0x0000a150                __bss_start__ = .
+                0x0000accc                . = .
+                0x0000accc                __bss_start = .
+                0x0000accc                __bss_start__ = .
 
-.bss            0x0000a150        0x4
+.bss            0x0000accc        0x4
  *(.dynbss)
- .dynbss        0x0000a150        0x0 graph_work.o
+ .dynbss        0x0000accc        0x0 graph_work.o
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss.option    0x0000a150        0x1 graph_work.o
-                0x0000a150                option
+ .bss.option    0x0000accc        0x1 graph_work.o
+                0x0000accc                option
  *(COMMON)
- COMMON         0x0000a151        0x3 graph_work.o
-                0x0000a151                graphik
-                0x0000a152                vibra
-                0x0000a153                sy
-                0x0000a154                . = ALIGN ((. != 0x0)?0x4:0x1)
-                0x0000a154                _bss_end__ = .
-                0x0000a154                __bss_end__ = .
-                0x0000a154                . = ALIGN (0x4)
-                0x0000a154                . = SEGMENT_START ("ldata-segment", .)
-                0x0000a154                . = ALIGN (0x4)
-                0x0000a154                __end__ = .
-                0x0000a154                _end = .
+ COMMON         0x0000accd        0x3 graph_work.o
+                0x0000accd                graphik
+                0x0000acce                vibra
+                0x0000accf                sy
+                0x0000acd0                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0000acd0                _bss_end__ = .
+                0x0000acd0                __bss_end__ = .
+                0x0000acd0                . = ALIGN (0x4)
+                0x0000acd0                . = SEGMENT_START ("ldata-segment", .)
+                0x0000acd0                . = ALIGN (0x4)
+                0x0000acd0                __end__ = .
+                0x0000acd0                _end = .
                 [!provide]                PROVIDE (end = .)
 
 .stack          0x00080000        0x0
@@ -769,11 +769,11 @@ LOAD ..\libbip\libbip.a
 .note.gnu.arm.ident
  *(.note.gnu.arm.ident)
 
-.noinit         0x0000a154        0x0
-                0x0000a154                . = ALIGN (0x2)
+.noinit         0x0000acd0        0x0
+                0x0000acd0                . = ALIGN (0x2)
                 [!provide]                PROVIDE (__noinit_start = .)
  *(.noinit)
-                0x0000a154                . = ALIGN (0x2)
+                0x0000acd0                . = ALIGN (0x2)
                 [!provide]                PROVIDE (__noinit_end = .)
 
 /DISCARD/
