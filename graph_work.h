@@ -22,12 +22,11 @@
 #define CALEND_COLOR_CUR_HOLY_FG		12	//	цвет чисел текущего месяца выходные;
 #define CALEND_COLOR_TODAY_BG			13	//	цвет чисел текущего дня;
 #define CALEND_COLOR_TODAY_FG			14	//	фон  чисел текущего дня;
-#define CALEND_COLOR_WORKDAY_BG			15	//	фон  чисел рабочего дня;
-#define CALEND_COLOR_WORKDAY_HOLY_BG	16	//	фон  чисел текущего месяца выходные при работе;
-#define CALEND_COLOR_WORKDAY_DAY_BG		17	//фон  чисел рабочего дня в день;
-#define CALEND_COLOR_WORKDAY_NIGHT_BG	18	//фон  чисел рабочего дня в ночь;
+#define CALEND_COLOR_WORKDAY_HOLY_BG	15	//	фон  чисел текущего месяца выходные при работе;
+#define CALEND_COLOR_WORKDAY_DAY_BG		16	//фон  чисел рабочего дня в день;
+#define CALEND_COLOR_WORKDAY_NIGHT_BG	17	//фон  чисел рабочего дня в ночь;
 
-// количество цыетовых схем
+// количество цветовых схем
 #define COLOR_SCHEME_COUNT	5
 
 //	смещение адреса для хранения настроек календаря
