@@ -437,7 +437,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -453,7 +453,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -474,7 +474,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -483,7 +483,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -549,7 +549,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -565,7 +565,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -587,7 +587,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -596,7 +596,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -662,7 +662,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -678,7 +678,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -699,7 +699,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -708,7 +708,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -774,7 +774,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -790,7 +790,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -811,7 +811,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -820,7 +820,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -886,7 +886,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -902,7 +902,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -923,7 +923,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -932,7 +932,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -998,7 +998,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1014,7 +1014,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1035,7 +1035,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1044,7 +1044,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1110,7 +1110,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1126,7 +1126,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1147,7 +1147,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1156,7 +1156,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1222,7 +1222,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1238,7 +1238,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1259,7 +1259,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1268,7 +1268,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1334,7 +1334,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1350,7 +1350,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1371,7 +1371,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1380,7 +1380,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1446,7 +1446,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1462,7 +1462,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1483,7 +1483,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1492,7 +1492,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1558,7 +1558,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1574,7 +1574,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1595,7 +1595,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1604,7 +1604,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};
 							} else if(graphik == 3){ // д.н.о.в
@@ -1670,7 +1670,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1686,7 +1686,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на нечетность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
@@ -1707,7 +1707,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								if  ((d + i) % 2 == 0 ){ //проверка на четность
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG]);
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + i) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -1716,7 +1716,7 @@ for (unsigned i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
 									frame = 0; //заливка
-									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_BG] &COLOR_MASK); 
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_TODAY_FG]);
 								};	
 							} else if(graphik == 3){ // д.н.о.в
