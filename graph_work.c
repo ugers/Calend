@@ -1773,10 +1773,9 @@ for (unsigned i=1; (i<=7*6);i++){
 								};
 							};	
 						};
-					};
 				};
 			};
-		} else {
+		}else{
 			if ( col > 5 ){  // если выходные 
 				if (month == m){
 					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_BG]); 
