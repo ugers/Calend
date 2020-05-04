@@ -1144,15 +1144,17 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 	set_fg_color (COLOR_RED);
 	draw_filled_rect(0, 48, 56, 81);//начало X/начало У/конец Х/конец У
 	//вибрация вЫключить
-	draw_filled_rect(0, 105, 56, 138);//начало X/начало У/конец Х/конец У	
+	draw_filled_rect(0, 108, 56, 141);//начало X/начало У/конец Х/конец У	
 	//смещение плюс
 	set_fg_color (COLOR_GREEN);
 	draw_filled_rect(120, 48, 176, 81);//начало X/начало У/конец Х/конец У
 	//вибрация включить
-	draw_filled_rect(120, 105, 176, 138);//начало X/начало У/конец Х/конец У
+	draw_filled_rect(120, 108, 176, 141);//начало X/начало У/конец Х/конец У
 	set_graph_callback_to_ram_1();
 	//load_font();// подгружаем шрифты
 	set_fg_color(COLOR_WHITE);
+	#define OPT1_HEIGHT				54		//	высота цифр числа
+	#define OPT2_HEIGHT				115		//	высота цифр числа
 	if (option==1){
 		//заголовок
 		text_out_center(settings_string[0], 88, 5); //надпись,ширина,высота
@@ -1160,50 +1162,50 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 		//опция 1 - Смещение дней
 		text_out_center(settings_string[1], 88, 28);//надпись,ширина,высота
 		_sprintf(text_sy, "%d", sy);
-		text_out_center(text_sy, 88, 50); //надпись,ширина,высота
+		text_out_center(text_sy, 88, OPT1_HEIGHT); //надпись,ширина,высота
 		//опция 2 - Вибрация
-		text_out_center(settings_string[2], 88, 85);//надпись,ширина,высота
+		text_out_center(settings_string[2], 88, 88);//надпись,ширина,высота
 		if (vibra==1){
-			text_out_center(settings_string[3], 88, 110);//надпись,ширина,высота
+			text_out_center(settings_string[3], 88, OPT2_HEIGHT);//надпись,ширина,высота
 		} else {
-			text_out_center(settings_string[4], 88, 110);//надпись,ширина,высота
+			text_out_center(settings_string[4], 88, OPT2_HEIGHT);//надпись,ширина,высота
 		};
-		text_out_center("↓", 88, 157);//надпись,ширина,высота
+		text_out_center("↓", 88, 155);//надпись,ширина,высота
 	}else if (option==2){
 		text_out_center("↑", 88, 6);//надпись,ширина,высота
 		//опция 1 - График
 		text_out_center(settings_string[5], 88, 28);//надпись,ширина,высота
 		switch(graphik){
 			case 0:{
-				text_out_center("1/1", 88, 50);//надпись,ширина,высота
+				text_out_center("1/1", 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 			case 1:{
-				text_out_center("1/3", 88, 50);//надпись,ширина,высота
+				text_out_center("1/3", 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 			case 2:{
-				text_out_center("2/2", 88, 50);//надпись,ширина,высота
+				text_out_center("2/2", 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 			case 3:{
-				text_out_center(settings_string[7], 88, 50);//надпись,ширина,высота
+				text_out_center(settings_string[7], 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 			case 4:{
-				text_out_center(settings_string[8], 88, 50);//надпись,ширина,высота
+				text_out_center(settings_string[8], 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 			case 5:{
-				text_out_center(settings_string[4], 88, 50);//надпись,ширина,высота
+				text_out_center(settings_string[4], 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
 		};
 		//опция 2 - Время выхода
-		text_out_center(settings_string[6], 88, 85);
+		text_out_center(settings_string[6], 88, 88);
 		char timerexit = INACTIVITY_PERIOD/1000;
 		_sprintf(text_timerexit, "%d", timerexit);
-		text_out_center(text_timerexit, 88, 110); //надпись,ширина,высота
+		text_out_center(text_timerexit, 88, OPT2_HEIGHT); //надпись,ширина,высота
 		//кнопка отмены
 		set_fg_color (COLOR_RED);
 		draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
@@ -1216,15 +1218,15 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 	//опция 1 минус
 	set_bg_color(COLOR_RED);
 	set_fg_color(COLOR_WHITE);
-	text_out_center("←", 25, 55); //надпись,ширина,высота
+	text_out_center("←", 27, 56); //надпись,ширина,высота
 	//опция 2 минус
-	text_out_center("←", 25, 112); //надпись,ширина,высота
+	text_out_center("←", 27, 113); //надпись,ширина,высота
 	//опция 1 плюс
 	set_bg_color(COLOR_GREEN);
 	set_fg_color(COLOR_WHITE);
-	text_out_center("→", 152, 55); //надпись,ширина,высота
+	text_out_center("→", 150, 56); //надпись,ширина,высота
 	//опция 2 минус
-	text_out_center("→", 152, 112); //надпись,ширина,высота
+	text_out_center("→", 150, 113); //надпись,ширина,высота
 	
 	repaint_screen_lines(0, 176);		
 };
@@ -1294,33 +1296,33 @@ int dispatch_calend_screen (void *param){
 					}
 				}else if (option==1){
 						//смещение минус
-						if (( gest->touch_pos_y >48) &&  ( gest->touch_pos_y < 81) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 60)){
+						if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if ( sy > 0 ){
-									sy = sy-1;
+									sy--;
 								}
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//смещение плюс
-						}else if (( gest->touch_pos_y >48) &&  ( gest->touch_pos_y < 81) &&  ( gest->touch_pos_x >116) &&  ( gest->touch_pos_x < 176)){
+						}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if(graphik == 4){
 									if ( sy < 4 ){
-										sy = sy+1;
+										sy++;
 									}
 								}else{									
 									if ( sy < 3 ){
-										sy = sy+1;
+										sy++;
 									}
 								}
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//вибрация вЫключить
-						}else if (( gest->touch_pos_y >100) &&  ( gest->touch_pos_y < 143) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 60)){
+						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
@@ -1330,10 +1332,8 @@ int dispatch_calend_screen (void *param){
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//вибрация включить
-						}else if (( gest->touch_pos_y >100) &&  ( gest->touch_pos_y < 143) &&  ( gest->touch_pos_x >116) &&  ( gest->touch_pos_x < 176)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
+						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+								vibrate(2,150,70);
 								if ( vibra < 1 ){
 									vibra++;
 								}
@@ -1342,27 +1342,27 @@ int dispatch_calend_screen (void *param){
 						};		
 				}else if (option==2){
 						//График минус
-						if (( gest->touch_pos_y >48) &&  ( gest->touch_pos_y < 81) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 60)){
+						if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if ( graphik > 0 ){
-									graphik = graphik-1;
+									graphik--;
 								}
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//График плюс
-						}else if (( gest->touch_pos_y >48) &&  ( gest->touch_pos_y < 81) &&  ( gest->touch_pos_x >116) &&  ( gest->touch_pos_x < 176)){
+						}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
 								if ( graphik < 5 ){
-									graphik = graphik+1;
+									graphik++;
 								}
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//Таймаут минус
-						}else if (( gest->touch_pos_y >100) &&  ( gest->touch_pos_y < 143) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 60)){
+						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
@@ -1372,7 +1372,7 @@ int dispatch_calend_screen (void *param){
 								draw_calend_option_menu(sy,vibra,graphik);
 								repaint_screen_lines(0, 176);
 						//Таймаут плюс
-						}else if (( gest->touch_pos_y >100) &&  ( gest->touch_pos_y < 143) &&  ( gest->touch_pos_x >116) &&  ( gest->touch_pos_x < 176)){
+						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
 								if (vibra==1){
 									vibrate(2,150,70);
 								}
