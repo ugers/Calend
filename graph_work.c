@@ -1140,21 +1140,21 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 	char text_timerexit[5];
 	set_bg_color(COLOR_BLACK);
 	fill_screen_bg();
-	//смещение минус
+	//опция 1 минус
 	set_fg_color (COLOR_RED);
 	draw_filled_rect(0, 48, 56, 81);//начало X/начало У/конец Х/конец У
-	//вибрация вЫключить
+	//опция 2 минус
 	draw_filled_rect(0, 108, 56, 141);//начало X/начало У/конец Х/конец У	
-	//смещение плюс
+	//опция 1 плюс
 	set_fg_color (COLOR_GREEN);
 	draw_filled_rect(120, 48, 176, 81);//начало X/начало У/конец Х/конец У
-	//вибрация включить
+	//опция 2 плюс
 	draw_filled_rect(120, 108, 176, 141);//начало X/начало У/конец Х/конец У
 	set_graph_callback_to_ram_1();
 	//load_font();// подгружаем шрифты
 	set_fg_color(COLOR_WHITE);
-	#define OPT1_HEIGHT				54		//	высота цифр числа
-	#define OPT2_HEIGHT				115		//	высота цифр числа
+	#define OPT1_HEIGHT				56		//	высота текста и стрелок Опции 1
+	#define OPT2_HEIGHT				115		//	высота текста и стрелок Опции 2
 	if (option==1){
 		//заголовок
 		text_out_center(settings_string[0], 88, 5); //надпись,ширина,высота
@@ -1218,15 +1218,15 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 	//опция 1 минус
 	set_bg_color(COLOR_RED);
 	set_fg_color(COLOR_WHITE);
-	text_out_center("←", 27, 56); //надпись,ширина,высота
+	text_out_center("←", 27, OPT1_HEIGHT); //надпись,ширина,высота
 	//опция 2 минус
-	text_out_center("←", 27, 113); //надпись,ширина,высота
+	text_out_center("←", 27, OPT2_HEIGHT); //надпись,ширина,высота
 	//опция 1 плюс
 	set_bg_color(COLOR_GREEN);
 	set_fg_color(COLOR_WHITE);
-	text_out_center("→", 150, 56); //надпись,ширина,высота
+	text_out_center("→", 150, OPT1_HEIGHT); //надпись,ширина,высота
 	//опция 2 минус
-	text_out_center("→", 150, 113); //надпись,ширина,высота
+	text_out_center("→", 150, OPT2_HEIGHT); //надпись,ширина,высота
 	
 	repaint_screen_lines(0, 176);		
 };
@@ -1255,7 +1255,6 @@ int dispatch_calend_screen (void *param){
 	 
 	switch (gest->gesture){
 		case GESTURE_CLICK: {
-			
 			// вибрация при любом нажатии на экран
 			if (vibra==1){
 				vibrate (1, 40, 0);
@@ -1272,7 +1271,6 @@ int dispatch_calend_screen (void *param){
 							calend->month 	= datetime.month;
 							calend->year 	= datetime.year;
 						}	
-
 						 if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
 							day = datetime.day;
 						 } else {	
@@ -1280,144 +1278,141 @@ int dispatch_calend_screen (void *param){
 						 }
 							draw_month(day, calend->month, calend->year);
 							repaint_screen_lines(1, 176);			
-						
 					} else { // кликнули в календарь
-					
-						calend->color_scheme = ((calend->color_scheme+1)%COLOR_SCHEME_COUNT);
-								
+						calend->color_scheme = ((calend->color_scheme+1)%COLOR_SCHEME_COUNT);		
 						// сначала обновим экран
 						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
 							day = datetime.day;
 						 } else {	
 							day = 0;
 						 }
-							draw_month(day, calend->month, calend->year);
-							repaint_screen_lines(1, 176);			
+						draw_month(day, calend->month, calend->year);
+						repaint_screen_lines(1, 176);			
 					}
 				}else if (option==1){
-						//смещение минус
-						if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( sy > 0 ){
-									sy--;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//смещение плюс
-						}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if(graphik == 4){
-									if ( sy < 4 ){
-										sy++;
-									}
-								}else{									
-									if ( sy < 3 ){
-										sy++;
-									}
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//вибрация вЫключить
-						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( vibra > 0 ){
-									vibra--;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//вибрация включить
-						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-								vibrate(2,150,70);
-								if ( vibra < 1 ){
-									vibra++;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						};		
+					//смещение минус
+					if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( sy > 0 ){
+							sy--;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//смещение плюс
+					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if(graphik == 4){
+							if ( sy < 8 ){
+								sy++;
+							}
+						}else{									
+							if ( sy < 3 ){
+								sy++;
+							}
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//вибрация вЫключить
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( vibra > 0 ){
+							vibra--;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//вибрация включить
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+						vibrate(2,150,70);
+						if ( vibra < 1 ){
+							vibra++;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					};		
 				}else if (option==2){
-						//График минус
-						if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( graphik > 0 ){
-									graphik--;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//График плюс
-						}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( graphik < 5 ){
-									graphik++;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//Таймаут минус
-						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( (INACTIVITY_PERIOD/1000) > 30 ){
-									INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//Таймаут плюс
-						}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-								if (vibra==1){
-									vibrate(2,150,70);
-								}
-								if ( (INACTIVITY_PERIOD/1000) < 250 ){
-									INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
-								}
-								draw_calend_option_menu(sy,vibra,graphik);
-								repaint_screen_lines(0, 176);
-						//кнопка отмены
-						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
-								if (vibra==1){
-									vibrate(1,70,0);
-								}
-								option = 0;
-								//возвращаемся на начальный экран календаря
-								if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-									day = datetime.day;
-								}else{	
-									day = 0;
-								}
-								draw_month(day, calend->month, calend->year);
-								repaint_screen_lines(0, 176);
-						//кнопка сохранить
-						}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >88) &&  ( gest->touch_pos_x < 176)){
-								if (vibra==1){
-									vibrate(1,70,0);
-								}
-								option = 0;
-								// запишем настройки в флэш память
-								calend_opt.color_scheme = calend->color_scheme;	
-								calend_opt.sy_opt = sy;
-								// запишем настройки в флэш память
-								calend_opt.vibra_opt = vibra;
-								calend_opt.graphik_opt = graphik;
-								ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
-								_memclr(&calend_opt, sizeof(struct calend_opt_));
-								//возвращаемся на начальный экран календаря
-								if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-									day = datetime.day;
-								}else{	
-									day = 0;
-								}
-								draw_month(day, calend->month, calend->year);
-								repaint_screen_lines(0, 176);
-						};
+					//График минус
+					if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( graphik > 0 ){
+							graphik--;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//График плюс
+					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( graphik < 5 ){
+							graphik++;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//Таймаут минус
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( (INACTIVITY_PERIOD/1000) > 30 ){
+							INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//Таймаут плюс
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+						if (vibra==1){
+							vibrate(2,150,70);
+						}
+						if ( (INACTIVITY_PERIOD/1000) < 250 ){
+							INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
+						}
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176);
+					//кнопка отмены
+					}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
+						if (vibra==1){
+							vibrate(1,70,0);
+						}
+						option = 0;
+						//возвращаемся на начальный экран календаря
+						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
+							day = datetime.day;
+						}else{	
+							day = 0;
+						}
+						draw_month(day, calend->month, calend->year);
+						repaint_screen_lines(0, 176);
+					//кнопка сохранить
+					}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >88) &&  ( gest->touch_pos_x < 176)){
+						if (vibra==1){
+							vibrate(1,70,0);
+						}
+						option = 0;
+						// запишем настройки в флэш память
+						calend_opt.color_scheme = calend->color_scheme;	
+						calend_opt.sy_opt = sy;
+						// запишем настройки в флэш память
+						calend_opt.vibra_opt = vibra;
+						calend_opt.graphik_opt = graphik;
+						ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
+						_memclr(&calend_opt, sizeof(struct calend_opt_));
+						//возвращаемся на начальный экран календаря
+						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
+							day = datetime.day;
+						}else{	
+							day = 0;
+						}
+						draw_month(day, calend->month, calend->year);
+						repaint_screen_lines(0, 176);
+					};
 				};						
 			// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
 			set_update_period(1, INACTIVITY_PERIOD);
@@ -1426,19 +1421,19 @@ int dispatch_calend_screen (void *param){
 		
 		case GESTURE_SWIPE_RIGHT: {	//	свайп направо
 				switch(option){
-						case 0:{
-							option = 1;
-							draw_calend_option_menu(sy,vibra,graphik);
-							repaint_screen_lines(0, 176); 
-							break;
-						}
+					case 0:{
+						option = 1;
+						draw_calend_option_menu(sy,vibra,graphik);
+						repaint_screen_lines(0, 176); 
+						break;
 					}
-					break;
-				};
+				}
+				break;
+			};
 		case GESTURE_SWIPE_LEFT: {	// справа налево
 			switch(option){
 				case 0:{
-				if ( get_left_side_menu_active()){
+					if ( get_left_side_menu_active()){
 						set_update_period(0,0);
 						
 						void* show_f = get_ptr_show_menu_func();
@@ -1529,7 +1524,7 @@ int dispatch_calend_screen (void *param){
 		};
 		case GESTURE_SWIPE_DOWN: {	// свайп вниз
 			switch(option){
-					case 0:{
+				case 0:{
 					if ( calend->month > 1 ) 
 							calend->month--;
 					else {
@@ -1547,7 +1542,7 @@ int dispatch_calend_screen (void *param){
 					// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
 					set_update_period(1, INACTIVITY_PERIOD);
 					break;
-					};
+				};
 				case 2:{
 					option = 1;
 					draw_calend_option_menu(sy,vibra,graphik);

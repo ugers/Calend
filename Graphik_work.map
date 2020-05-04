@@ -200,8 +200,8 @@ Name             Origin             Length             Attributes
 Linker script and memory map
 
 LOAD graph_work.o
-LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
-LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
+LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
+LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
 LOAD ..\libbip\libbip.a
                 [!provide]                PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x8000))
                 0x00008000                . = SEGMENT_START ("text-segment", 0x8000)
