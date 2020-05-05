@@ -5,9 +5,9 @@ Archive member included to satisfy reference by file (symbol)
 Allocating common symbols
 Common symbol       size              file
 
+yearoffset          0x1               graph_work.o
 graphik             0x1               graph_work.o
 vibra               0x1               graph_work.o
-sy                  0x1               graph_work.o
 
 Discarded input sections
 
@@ -200,8 +200,8 @@ Name             Origin             Length             Attributes
 Linker script and memory map
 
 LOAD graph_work.o
-LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
-LOAD d:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
+LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libm.a
+LOAD c:\program files (x86)\gnu tools arm embedded\9 2019-q4-major\bin\../arm-none-eabi/lib\libc.a
 LOAD ..\libbip\libbip.a
                 [!provide]                PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x8000))
                 0x00008000                . = SEGMENT_START ("text-segment", 0x8000)
@@ -662,9 +662,9 @@ LOAD ..\libbip\libbip.a
                 0x0000a6dc                option
  *(COMMON)
  COMMON         0x0000a6dd        0x3 graph_work.o
-                0x0000a6dd                graphik
-                0x0000a6de                vibra
-                0x0000a6df                sy
+                0x0000a6dd                yearoffset
+                0x0000a6de                graphik
+                0x0000a6df                vibra
                 0x0000a6e0                . = ALIGN ((. != 0x0)?0x4:0x1)
                 0x0000a6e0                _bss_end__ = .
                 0x0000a6e0                __bss_end__ = .
@@ -962,7 +962,6 @@ stm32_soft_reset                                  ..\libbip\libbip.a(import.o)
 store_and_enable_alarm                            ..\libbip\libbip.a(import.o)
 store_selected_lang                               ..\libbip\libbip.a(import.o)
 store_selected_left_side                          ..\libbip\libbip.a(import.o)
-sy                                                graph_work.o
 text_out                                          ..\libbip\libbip.a(import.o)
                                                   graph_work.o
 text_out_center                                   ..\libbip\libbip.a(import.o)
@@ -976,3 +975,4 @@ vibrate                                           ..\libbip\libbip.a(import.o)
                                                   graph_work.o
 wday                                              graph_work.o
 write_flash                                       ..\libbip\libbip.a(import.o)
+yearoffset                                        graph_work.o

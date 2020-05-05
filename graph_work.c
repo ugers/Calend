@@ -20,7 +20,7 @@
 #include "graph_work.h"
 //#define DEBUG_LOG
 char option=0;
-char sy;
+char yearoffset;
 char vibra;
 char graphik;
 //	структура меню экрана календаря
@@ -113,7 +113,7 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 			calend->color_scheme = 0;
 	}
 	vibra = calend_opt.vibra_opt;
-	sy = calend_opt.sy_opt;
+	yearoffset = calend_opt.yearoffset_opt;
 	graphik = calend_opt.graphik_opt;
 	
 	_memclr(&calend_opt, sizeof(struct calend_opt_));		
@@ -489,41 +489,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};			
@@ -531,41 +531,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 и 0 = 1 выходной / 3 и 6 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 и 0 = 1 выходной / 3 и 6 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -573,41 +573,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 5 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 5 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 4 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 4 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -615,41 +615,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 4 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 4 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};
@@ -657,41 +657,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};
@@ -699,41 +699,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -741,41 +741,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 7 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 7 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 6 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 6 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -783,41 +783,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 6 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 6 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 5 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 5 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -825,41 +825,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 5 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 5 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 4 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 4 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -867,41 +867,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 3 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 2 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -909,41 +909,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 2 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 2 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -951,41 +951,41 @@ for (unsigned i=1; (i<=7*6);i++){
 						if(graphik == 0){ // 1/1
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4 
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 							}else{
-								i = 1 + sy; 					//смещение дня       1 = 1,3 / 0 = 2,4
+								i = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 							}
 							graphik0(i);
 						} else if(graphik == 1){ // 1/3
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 							}
 							graphik1(i);
 						} else if(graphik == 2){ // 2/2
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik2(i);	
 						} else if(graphik == 3){ // д.н.о.в
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}else{
-								i = 3 + sy; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
+								i = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 							}
 							graphik3(i);
 						} else if(graphik == 4){ // 2д2в2н
 							char i;
 							if (isLeapYear(year)>0){ //проверка высокостный год или нет
-								i = 0 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 0 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}else{
-								i = 7 + sy; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
+								i = 7 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 							}
 							graphik4(i);
 						};	
@@ -1090,7 +1090,7 @@ void key_press_calend_screen(){
 	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 };
 
-void draw_calend_option_menu(char sy,short vibra,char graphik){
+void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
 	
 	char *settings_string_ru[] = {	
 			 "Настройки", "Смещение дней", "Вибрация", 	"Вкл.",
@@ -1136,7 +1136,7 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 			break;
 		}
 	};
-	char text_sy[3];
+	char text_yearoffset[3];
 	char text_timerexit[5];
 	set_bg_color(COLOR_BLACK);
 	fill_screen_bg();
@@ -1161,8 +1161,8 @@ void draw_calend_option_menu(char sy,short vibra,char graphik){
 		draw_horizontal_line(23, H_MARGIN, 176-H_MARGIN);	// линия отделяющая заголовок от меню
 		//опция 1 - Смещение дней
 		text_out_center(settings_string[1], 88, 28);//надпись,ширина,высота
-		_sprintf(text_sy, "%d", sy);
-		text_out_center(text_sy, 88, OPT1_HEIGHT); //надпись,ширина,высота
+		_sprintf(text_yearoffset, "%d", yearoffset);
+		text_out_center(text_yearoffset, 88, OPT1_HEIGHT); //надпись,ширина,высота
 		//опция 2 - Вибрация
 		text_out_center(settings_string[2], 88, 88);//надпись,ширина,высота
 		if (vibra==1){
@@ -1295,10 +1295,10 @@ int dispatch_calend_screen (void *param){
 						if (vibra==1){
 							vibrate(2,150,70);
 						}
-						if ( sy > 0 ){
-							sy--;
+						if ( yearoffset > 0 ){
+							yearoffset--;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//смещение плюс
 					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
@@ -1306,15 +1306,15 @@ int dispatch_calend_screen (void *param){
 							vibrate(2,150,70);
 						}
 						if(graphik == 4){
-							if ( sy < 8 ){
-								sy++;
+							if ( yearoffset < 8 ){
+								yearoffset++;
 							}
 						}else{									
-							if ( sy < 3 ){
-								sy++;
+							if ( yearoffset < 3 ){
+								yearoffset++;
 							}
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//вибрация вЫключить
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
@@ -1324,7 +1324,7 @@ int dispatch_calend_screen (void *param){
 						if ( vibra > 0 ){
 							vibra--;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//вибрация включить
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
@@ -1332,7 +1332,7 @@ int dispatch_calend_screen (void *param){
 						if ( vibra < 1 ){
 							vibra++;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					};		
 				}else if (option==2){
@@ -1344,7 +1344,7 @@ int dispatch_calend_screen (void *param){
 						if ( graphik > 0 ){
 							graphik--;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//График плюс
 					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
@@ -1354,27 +1354,27 @@ int dispatch_calend_screen (void *param){
 						if ( graphik < 5 ){
 							graphik++;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//Таймаут минус
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 						if (vibra==1){
 							vibrate(2,150,70);
 						}
 						if ( (INACTIVITY_PERIOD/1000) > 30 ){
 							INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//Таймаут плюс
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
+					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
 						if (vibra==1){
 							vibrate(2,150,70);
 						}
 						if ( (INACTIVITY_PERIOD/1000) < 250 ){
 							INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
 						}
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//кнопка отмены
 					}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
@@ -1398,7 +1398,7 @@ int dispatch_calend_screen (void *param){
 						option = 0;
 						// запишем настройки в флэш память
 						calend_opt.color_scheme = calend->color_scheme;	
-						calend_opt.sy_opt = sy;
+						calend_opt.yearoffset_opt = yearoffset;
 						// запишем настройки в флэш память
 						calend_opt.vibra_opt = vibra;
 						calend_opt.graphik_opt = graphik;
@@ -1423,7 +1423,7 @@ int dispatch_calend_screen (void *param){
 				switch(option){
 					case 0:{
 						option = 1;
-						draw_calend_option_menu(sy,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176); 
 						break;
 					}
@@ -1515,7 +1515,7 @@ int dispatch_calend_screen (void *param){
 				};
 				case 1:{
 					option = 2;
-					draw_calend_option_menu(sy,vibra,graphik);
+					draw_calend_option_menu(yearoffset,vibra,graphik);
 					repaint_screen_lines(0, 176);
 					break;
 				}
@@ -1545,7 +1545,7 @@ int dispatch_calend_screen (void *param){
 				};
 				case 2:{
 					option = 1;
-					draw_calend_option_menu(sy,vibra,graphik);
+					draw_calend_option_menu(yearoffset,vibra,graphik);
 					repaint_screen_lines(0, 176);
 					break;
 				}

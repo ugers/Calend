@@ -69,7 +69,7 @@ unsigned int INACTIVITY_PERIOD = 30000;		//	время по прошествии
 // сохраняемые опции календаря
 struct calend_opt_ {
 		unsigned char	color_scheme;	//	цветовая схема
-		unsigned char sy_opt; //смещение графика
+		unsigned char yearoffset_opt; //смещение графика
 		unsigned char vibra_opt; //вибрация
 		unsigned char graphik_opt; //график работы
 };
