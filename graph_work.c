@@ -157,42 +157,41 @@ struct calend_ *	calend = *calend_p;						//	указатель на данны�
 
 
 static unsigned char short_color_scheme[COLOR_SCHEME_COUNT][18] = 	
-/* черная тема без выделения выходных*/		{//		0				1				2				3				4				5				6
-											 {COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-											 //		7				8				9			10					11				12				13													 
-											 COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_YELLOW,
-											 //		14 				15				16				17										 
-											 COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
+/* черная тема без выделения выходных*/	{//		0				1				2				3				4				5				6
+										{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
+										//		7				8				9			10					11				12				13													 
+										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_YELLOW,
+										//		14 				15				16				17										 
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
 
-											 //		0				1			2					3			4				5				6
-/* белая тема без выделения выходных*/		{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
-											 //		7				8			9				10				11				12			13	
-											 COLOR_SH_BLUE, COLOR_SH_WHITE, COLOR_SH_AQUA, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_BLUE, 
-											 //		14 				15				16				17		 											 
-											 COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
+										//		0				1			2					3			4				5				6
+/* белая тема без выделения выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
+										//		7				8			9				10				11				12			13	
+										COLOR_SH_BLUE, COLOR_SH_WHITE, COLOR_SH_AQUA, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_BLUE, 
+										//		14 				15				16				17		 											 
+										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
 		
-											 //		0				1			2					3			4			5			6
-/* черная тема с выделением выходных*/		{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-											 //		7				8			9				10				11				12 				13	
-											 COLOR_SH_GREEN, COLOR_SH_RED, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_AQUA, 
-											 //		14 				15				16				17										 
-											 COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
+										//		0				1			2					3			4			5			6
+/* черная тема с выделением выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
+										//		7				8			9				10				11				12 				13	
+										COLOR_SH_GREEN, COLOR_SH_RED, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_AQUA, 
+										//		14 				15				16				17										 
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
 	
-											 //		0				1				2				3			4			5			6
-/* белая тема с выделением выходных*/		{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
-											 //		7				8			9				10				11			12				13
-											 COLOR_SH_BLUE, COLOR_SH_RED, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_BLACK, COLOR_SH_BLUE, 
-											 //		14 				15				16				17												 
-											 COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
+										//		0				1				2				3			4			5			6
+/* белая тема с выделением выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
+										//		7				8			9				10				11			12				13
+										COLOR_SH_BLUE, COLOR_SH_RED, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_BLACK, COLOR_SH_BLUE, 
+										//		14 				15				16				17												 
+										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
 		
-											//		0				1				2				3			4			5			6
-/* черная тема без выделения выходных*/		{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-/*с рамкой выделения сегодняшнего дня*/		//		7				8			9					10				11				12				13	
-										     COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_AQUA|(1<<7), 
-											 //		14 				15				16				17	
-											COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
-													
-											};
+										//		0				1				2				3			4			5			6
+/* черная тема без выделения выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
+/*с рамкой выделения сегодняшнего дня*/	//		7				8			9					10				11				12				13	
+										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_AQUA|(1<<7), 
+										//		14 				15				16				17	
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},		
+										};
 
 int color_scheme[COLOR_SCHEME_COUNT][18];
 
