@@ -116,7 +116,20 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	yearoffset = calend_opt.yearoffset_opt;
 	graphik = calend_opt.graphik_opt;
 	
-	_memclr(&calend_opt, sizeof(struct calend_opt_));		
+	_memclr(&calend_opt, sizeof(struct calend_opt_));
+	
+	if((calend->day == 31)&&(calend->month == 12)){
+		set_bg_color(COLOR_BLACK);
+		fill_screen_bg();
+		set_graph_callback_to_ram_1();
+		load_font(); // подгружаем шрифты
+		set_fg_color(COLOR_WHITE);
+		text_out_center("Завтра нужно", 88, 60);//надпись,ширина,высота
+		text_out_center("поменять", 88, 85);//надпись,ширина,высота
+		text_out_center("смещение дня!", 88, 110);//надпись,ширина,высота
+		repaint_screen_lines(0, 176);
+		vTaskDelay(1200);	
+	}
 	draw_month(calend->day, calend->month, calend->year);
 }
 
@@ -128,6 +141,7 @@ set_display_state_value(2, 1);
 set_update_period(1, INACTIVITY_PERIOD);
 
 }
+
 
 void draw_month(unsigned int day, unsigned int month, unsigned int year){
 struct calend_** 	calend_p = get_ptr_temp_buf_2(); 		//	указатель на указатель на данные экрана 
@@ -285,6 +299,7 @@ switch (get_selected_locale()){
 		}
 	}
 
+
 _memclr(&text_buffer, 24);
 
 set_bg_color(color_scheme[calend->color_scheme][CALEND_COLOR_BG]);	//	фон календаря
@@ -356,7 +371,6 @@ if (d>1) {
      m=(month==1)?12:month-1;
      d=day_month[m]-d+2;
 	}
-
 // числа месяца
 for (unsigned i=1; (i<=7*6);i++){
      
