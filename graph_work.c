@@ -49,21 +49,21 @@ int main(int param0, char** argv){	//	переменная argv не опред�
 }
 
 void show_calend_screen (void *param0){
-	struct calend_** 	calend_p = get_ptr_temp_buf_2(); 	//	указатель на указатель на данные экрана 
-	struct calend_ *	calend;								//	указатель на данные экрана
-	struct calend_opt_ 	calend_opt;							//	опции календаря
+struct calend_** 	calend_p = get_ptr_temp_buf_2(); 	//	указатель на указатель на данные экрана 
+struct calend_ *	calend;								//	указатель на данные экрана
+struct calend_opt_ 	calend_opt;							//	опции календаря
 
-	#ifdef DEBUG_LOG
-		log_printf(5, "[show_calend_screen] param0=%X; *temp_buf_2=%X; menu_overlay=%d", (int)param0, (int*)get_ptr_temp_buf_2(), get_var_menu_overlay());
-		log_printf(5, " #calend_p=%X; *calend_p=%X", (int)calend_p, (int)*calend_p);
-	#endif
+#ifdef DEBUG_LOG
+log_printf(5, "[show_calend_screen] param0=%X; *temp_buf_2=%X; menu_overlay=%d", (int)param0, (int*)get_ptr_temp_buf_2(), get_var_menu_overlay());
+log_printf(5, " #calend_p=%X; *calend_p=%X", (int)calend_p, (int)*calend_p);
+#endif
 
 if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из оверлейного экрана (входящий звонок, уведомление, будильник, цель и т.д.)
 
-	#ifdef DEBUG_LOG
-		log_printf(5, "  #from overlay");
-		log_printf(5, "\r\n");
-	#endif	
+#ifdef DEBUG_LOG
+	log_printf(5, "  #from overlay");
+	log_printf(5, "\r\n");
+#endif	
 
 	calend = *calend_p;						//	указатель на данные необходимо сохранить для исключения 
 											//	высвобождения памяти функцией reg_menu
@@ -76,12 +76,12 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	
 	draw_month(0, calend->month, calend->year);
 	
-}else{ 			// если запуск функции произошел из меню, 
+} else { 			// если запуск функции произошел из меню, 
 
-	#ifdef DEBUG_LOG
-		log_printf(5, "  #from menu");
-		log_printf(5, "\r\n");
-	#endif
+#ifdef DEBUG_LOG
+	log_printf(5, "  #from menu");
+	log_printf(5, "\r\n");
+#endif
 	// создаем экран
 	reg_menu(&menu_calend_screen, 0);
 
@@ -119,21 +119,9 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	}else{ 
 			calend->color_scheme = 0;
 	}
-	if((calend_opt.vibra_opt<0)&&(calend_opt.vibra_opt>1)){
-		vibra = 0;
-	}else{
-		vibra = calend_opt.vibra_opt;
-	}
-	if((calend_opt.yearoffset_opt<0)&&(calend_opt.yearoffset_opt>10)){
-		yearoffset = 0;
-	}else{
-		yearoffset = calend_opt.yearoffset_opt;
-	}
-	if((calend_opt.graphik_opt<0)&&(calend_opt.graphik_opt>5)){
-		graphik = 0;
-	}else{
-		graphik = calend_opt.graphik_opt;
-	}
+	vibra = calend_opt.vibra_opt;
+	yearoffset = calend_opt.yearoffset_opt;
+	graphik = calend_opt.graphik_opt;
 	
 	_memclr(&calend_opt, sizeof(struct calend_opt_));
 //Напоминание о смене года и необходимости поменять смещение	
@@ -1110,7 +1098,7 @@ void key_press_calend_screen(){
 	struct calend_** 	calend_p = get_ptr_temp_buf_2(); 		//	указатель на указатель на данные экрана 
 	struct calend_ *	calend = *calend_p;			//	указатель на данные экрана
 	
-	show_menu(calend->ret_f, (unsigned int)show_calend_screen);	
+	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 };
 
 void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
@@ -1259,7 +1247,7 @@ void calend_screen_job(){
 	struct calend_ *	calend = *calend_p;			//	указатель на данные экрана
 	
 	// при достижении таймера обновления выходим
-	show_menu(calend->ret_f, (unsigned int)show_calend_screen);
+	show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_LEFT);
 }
 
 int dispatch_calend_screen (void *param){
@@ -1487,12 +1475,12 @@ int dispatch_calend_screen (void *param){
 					} else { 			//	если запуск не из быстрого меню, обрабатываем свайпы по отдельности
 						switch (gest->gesture){
 							case GESTURE_SWIPE_RIGHT: {	//	свайп направо
-								return show_menu(calend->ret_f, (unsigned int)show_calend_screen);	
+								return show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_RIGHT);	
 								break;
 							}
 							case GESTURE_SWIPE_LEFT: {	// справа налево
 								//	действие при запуске из меню и дальнейший свайп влево
-								
+								return show_menu_animate(calend->ret_f, (unsigned int)show_calend_screen, ANIMATE_LEFT);	
 								break;
 							}
 						} /// switch (gest->gesture)
