@@ -24,7 +24,6 @@
 #define CALEND_COLOR_TODAY_FG			14	//	фон  чисел текущего дня;
 #define CALEND_COLOR_WORKDAY_HOLY_BG	15	//	фон  чисел текущего месяца выходные при работе;
 #define CALEND_COLOR_WORKDAY_DAY_BG		16	//фон  чисел рабочего дня в день;
-#define CALEND_COLOR_WORKDAY_NIGHT_BG	17	//фон  чисел рабочего дня в ночь;
 
 // количество цветовых схем
 #define COLOR_SCHEME_COUNT	5

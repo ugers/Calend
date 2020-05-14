@@ -181,7 +181,7 @@ struct calend_ *	calend = *calend_p;						//	указатель на данны�
  6:	CALEND_COLOR_SEPAR				цвет разделителей календаря;
  7:	CALEND_COLOR_NOT_CUR_WORK		цвет чисел НЕ текущего месяца будни;
  8:	CALEND_COLOR_NOT_CUR_HOLY_BG	фон  чисел НЕ текущего месяца выходные;
- 9:	CALEND_COLOR_NOT_CUR_HOLY_FG	цвет чисел НЕ текущего месяца выходные;
+ 9:	CALEND_COLOR_NOT_CUR_HOLY_FG	цвет чисел НЕ текущего месяца выходные;	фон  чисел рабочего дня в ночь;
 10:	CALEND_COLOR_CUR_WORK			цвет чисел текущего месяца будни;
 11:	CALEND_COLOR_CUR_HOLY_BG		фон  чисел текущего месяца выходные;
 12:	CALEND_COLOR_CUR_HOLY_FG		цвет чисел текущего месяца выходные;
@@ -189,52 +189,51 @@ struct calend_ *	calend = *calend_p;						//	указатель на данны�
 14: CALEND_COLOR_TODAY_FG			цвет чисел текущего дня;
 15:	CALEND_COLOR_WORKDAY_HOLY_BG	фон  чисел текущего месяца выходные при работе;
 16: CALEND_COLOR_WORKDAY_DAY_BG		фон  чисел рабочего дня в день;
-17: CALEND_COLOR_WORKDAY_NIGHT_BG	фон  чисел рабочего дня в ночь;
 */
 
 
-static unsigned char short_color_scheme[COLOR_SCHEME_COUNT][18] = 	
+static unsigned char short_color_scheme[COLOR_SCHEME_COUNT][17] = 	
 /* черная тема без выделения выходных*/	{//		0				1				2				3				4				5				6
 										{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
 										//		7				8				9			10					11				12				13													 
 										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_YELLOW,
-										//		14 				15				16				17										 
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
+										//		14 				15				16									 
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW}, 
 
 										//		0				1			2					3			4				5				6
 /* белая тема без выделения выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
 										//		7				8			9				10				11				12			13	
 										COLOR_SH_BLUE, COLOR_SH_WHITE, COLOR_SH_AQUA, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_BLUE, 
-										//		14 				15				16				17		 											 
-										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
+										//		14 				15				16		 											 
+										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW},
 		
-										//		0				1			2					3			4			5			6
+										//		0				1			2					3			4				5				6
 /* черная тема с выделением выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
 										//		7				8			9				10				11				12 				13	
 										COLOR_SH_GREEN, COLOR_SH_RED, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_AQUA, 
-										//		14 				15				16				17										 
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE}, 
+										//		14 				15				16									 
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW}, 
 	
-										//		0				1				2				3			4			5			6
+										//		0				1			2					3			4				5				6
 /* белая тема с выделением выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
 										//		7				8			9				10				11			12				13
 										COLOR_SH_BLUE, COLOR_SH_RED, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_BLACK, COLOR_SH_BLUE, 
-										//		14 				15				16				17												 
-										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},
+										//		14 				15				16											 
+										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW},
 		
-										//		0				1				2				3			4			5			6
+										//		0				1			2					3			4				5				6
 /* черная тема без выделения выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
 /*с рамкой выделения сегодняшнего дня*/	//		7				8			9					10				11				12				13	
 										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_AQUA|(1<<7), 
-										//		14 				15				16				17	
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW, COLOR_SH_PURPLE},		
+										//		14 				15				16
+										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW},		
 										};
 
-int color_scheme[COLOR_SCHEME_COUNT][18];
+int color_scheme[COLOR_SCHEME_COUNT][17];
 
 
 for (unsigned char i=0;i<COLOR_SCHEME_COUNT;i++)
-	for (unsigned char j=0;j<18;j++){
+	for (unsigned char j=0;j<17;j++){
 	color_scheme[i][j]  = (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_RED)  ?COLOR_RED   :0;	//	составляющая красного цвета
 	color_scheme[i][j] |= (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_GREEN)?COLOR_GREEN :0;	//	составляющая зеленого цвета
 	color_scheme[i][j] |= (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_BLUE) ?COLOR_BLUE  :0;	//	составляющая синего цвета
@@ -452,7 +451,7 @@ for (unsigned i=1; (i<=7*6);i++){
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 		} else {		//добавляем нечетные и получаем график
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_NIGHT_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 		};
 		if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
@@ -466,12 +465,12 @@ for (unsigned i=1; (i<=7*6);i++){
 		graphik2(mouthoffset);
 		if ((d + mouthoffset - 2) % 8 == 0 ){ //
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_NIGHT_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 		};
 		if ((d + mouthoffset - 3) % 8 == 0 ){ //
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_NIGHT_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 		};
 	}
