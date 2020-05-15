@@ -174,66 +174,64 @@ struct calend_ *	calend = *calend_p;						//	указатель на данны�
 /*
  0:	CALEND_COLOR_BG					фон календаря;
  1:	CALEND_COLOR_MONTH				цвет названия текущего месяца;
- 2:	CALEND_COLOR_YEAR				цвет текущего года;
+ 2:	CALEND_COLOR_YEAR				цвет текущего года;	фон  чисел рабочего дня в ночь;
  3:	CALEND_COLOR_WORK_NAME			цвет названий дней будни;
- 4: CALEND_COLOR_HOLY_NAME_BG		фон	 названий дней выходные;
+ 4: CALEND_COLOR_HOLY_NAME_BG		фон	 названий дней выходные; фон  чисел текущего месяца выходные при работе;
  5:	CALEND_COLOR_HOLY_NAME_FG		цвет названий дней выходные;
  6:	CALEND_COLOR_SEPAR				цвет разделителей календаря;
- 7:	CALEND_COLOR_NOT_CUR_WORK		цвет чисел НЕ текущего месяца будни;
+ 7:	CALEND_COLOR_NOT_CUR_WORK		цвет чисел НЕ текущего месяца будни; фон  чисел рабочего дня в день;
  8:	CALEND_COLOR_NOT_CUR_HOLY_BG	фон  чисел НЕ текущего месяца выходные;
- 9:	CALEND_COLOR_NOT_CUR_HOLY_FG	цвет чисел НЕ текущего месяца выходные;	фон  чисел рабочего дня в ночь;
+ 9:	CALEND_COLOR_NOT_CUR_HOLY_FG	цвет чисел НЕ текущего месяца выходные;
 10:	CALEND_COLOR_CUR_WORK			цвет чисел текущего месяца будни;
 11:	CALEND_COLOR_CUR_HOLY_BG		фон  чисел текущего месяца выходные;
 12:	CALEND_COLOR_CUR_HOLY_FG		цвет чисел текущего месяца выходные;
 13: CALEND_COLOR_TODAY_BG			фон  чисел текущего дня; 		bit 31 - заливка: =0 заливка цветом фона, =1 только рамка, фон как у числа не текущего месяца 
 14: CALEND_COLOR_TODAY_FG			цвет чисел текущего дня;
-15:	CALEND_COLOR_WORKDAY_HOLY_BG	фон  чисел текущего месяца выходные при работе;
-16: CALEND_COLOR_WORKDAY_DAY_BG		фон  чисел рабочего дня в день;
 */
 
 
-static unsigned char short_color_scheme[COLOR_SCHEME_COUNT][17] = 	
+static unsigned char short_color_scheme[COLOR_SCHEME_COUNT][15] = 	
 /* черная тема без выделения выходных*/	{//		0				1				2				3				4				5				6
-										{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-										//		7				8				9			10					11				12				13													 
+										{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE,
+										//		7				8				9			10					11				12				13
 										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_YELLOW,
-										//		14 				15				16									 
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW}, 
+										//		14
+										COLOR_SH_BLACK},
 
 										//		0				1			2					3			4				5				6
-/* белая тема без выделения выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
-										//		7				8			9				10				11				12			13	
-										COLOR_SH_BLUE, COLOR_SH_WHITE, COLOR_SH_AQUA, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_BLUE, 
-										//		14 				15				16		 											 
-										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW},
+/* белая тема без выделения выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK,
+										//		7				8			9				10				11				12			13
+										COLOR_SH_YELLOW, COLOR_SH_WHITE, COLOR_SH_AQUA, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_BLUE,
+										//		14
+										COLOR_SH_WHITE},
 		
 										//		0				1			2					3			4				5				6
-/* черная тема с выделением выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-										//		7				8			9				10				11				12 				13	
-										COLOR_SH_GREEN, COLOR_SH_RED, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_AQUA, 
-										//		14 				15				16									 
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW}, 
+/* черная тема с выделением выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE,
+										//		7				8			9				10				11				12 				13
+										COLOR_SH_GREEN, COLOR_SH_RED, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_AQUA,
+										//		14
+										COLOR_SH_BLACK},
 	
 										//		0				1			2					3			4				5				6
-/* белая тема с выделением выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK, 
+/* белая тема с выделением выходных*/	{COLOR_SH_WHITE, COLOR_SH_BLACK, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_BLACK,
 										//		7				8			9				10				11			12				13
-										COLOR_SH_BLUE, COLOR_SH_RED, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_BLACK, COLOR_SH_BLUE, 
-										//		14 				15				16											 
-										COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_YELLOW},
+										COLOR_SH_YELLOW, COLOR_SH_RED, COLOR_SH_BLUE, COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_BLACK, COLOR_SH_BLUE,
+										//		14
+										COLOR_SH_WHITE},
 		
 										//		0				1			2					3			4				5				6
-/* черная тема без выделения выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE, 
-/*с рамкой выделения сегодняшнего дня*/	//		7				8			9					10				11				12				13	
-										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_AQUA|(1<<7), 
-										//		14 				15				16
-										COLOR_SH_BLACK, COLOR_SH_RED, COLOR_SH_YELLOW},		
+/* черная тема без выделения выходных*/	{COLOR_SH_BLACK, COLOR_SH_YELLOW, COLOR_SH_AQUA, COLOR_SH_WHITE, COLOR_SH_RED, COLOR_SH_WHITE, COLOR_SH_WHITE,
+/*с рамкой выделения сегодняшнего дня*/	//		7				8			9					10				11				12				13
+										COLOR_SH_GREEN, COLOR_SH_BLACK, COLOR_SH_AQUA, COLOR_SH_YELLOW, COLOR_SH_BLACK, COLOR_SH_WHITE, COLOR_SH_AQUA|(1<<7),
+										//		14
+										COLOR_SH_BLACK},
 										};
 
-int color_scheme[COLOR_SCHEME_COUNT][17];
+int color_scheme[COLOR_SCHEME_COUNT][15];
 
 
 for (unsigned char i=0;i<COLOR_SCHEME_COUNT;i++)
-	for (unsigned char j=0;j<17;j++){
+	for (unsigned char j=0;j<15;j++){
 	color_scheme[i][j]  = (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_RED)  ?COLOR_RED   :0;	//	составляющая красного цвета
 	color_scheme[i][j] |= (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_GREEN)?COLOR_GREEN :0;	//	составляющая зеленого цвета
 	color_scheme[i][j] |= (((unsigned int)short_color_scheme[i][j]&(unsigned char)COLOR_SH_MASK)&COLOR_SH_BLUE) ?COLOR_BLUE  :0;	//	составляющая синего цвета
@@ -409,11 +407,11 @@ for (unsigned i=1; (i<=7*6);i++){
 	void graphik0(char mouthoffset){ // 1/1
 		if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 		} else {		//добавляем нечетные и получаем график
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_HOLY_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 		};
 	}
@@ -422,7 +420,7 @@ for (unsigned i=1; (i<=7*6);i++){
 		graphik0(mouthoffset);
 		if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_HOLY_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 		};
 	}
@@ -430,16 +428,16 @@ for (unsigned i=1; (i<=7*6);i++){
 	void graphik2(char mouthoffset){ // 2/2
 		if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 		};
 		if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_HOLY_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 		} else {		//добавляем нечетные и получаем график
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 		};
 	}
@@ -447,16 +445,16 @@ for (unsigned i=1; (i<=7*6);i++){
 	void graphik3(char mouthoffset){ // д.н.о.в
 		if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_DAY_BG]);
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 		} else {		//добавляем нечетные и получаем график
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 		};
 		if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORKDAY_HOLY_BG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 		};
 	}
@@ -465,12 +463,12 @@ for (unsigned i=1; (i<=7*6);i++){
 		graphik2(mouthoffset);
 		if ((d + mouthoffset - 2) % 8 == 0 ){ //
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 		};
 		if ((d + mouthoffset - 3) % 8 == 0 ){ //
 			frame = 0; //заливка
-			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG] &COLOR_MASK); 
+			bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 			fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 		};
 	}
@@ -1311,95 +1309,82 @@ int dispatch_calend_screen (void *param){
 						draw_month(day, calend->month, calend->year);
 						repaint_screen_lines(1, 176);			
 					}
-				}else if (option==1){
+				}else if ((option==1)||(option==2)){
 					//смещение минус
 					if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-						if (vibra==1){
-							vibrate(2,150,70);
-						}
-						if (yearoffset > 0){
-							yearoffset--;
+							if (vibra==1){
+								vibrate(2,150,70);
+							}
+						if (option==1){
+							if (yearoffset > 0){
+								yearoffset--;
+							}
+						}else if (option==2){ //график минус
+							if ( graphik > 0 ){
+								graphik--;
+							}
 						}
 						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//смещение плюс
 					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-						if (vibra==1){
-							vibrate(2,150,70);
-						}
-						if(graphik == 4){
-							if (yearoffset < 8){
-								yearoffset++;
+							if (vibra==1){
+								vibrate(2,150,70);
 							}
-						}else{									
-							if (yearoffset < 3){
-								yearoffset++;
+						if (option==1){
+							if(graphik == 4){
+								if (yearoffset < 8){
+									yearoffset++;
+								}
+							}else{									
+								if (yearoffset < 3){
+									yearoffset++;
+								}
+							}
+						}else if (option==2){ //график плюс
+							if ( graphik < 5 ){
+								graphik++;
 							}
 						}
 						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
 					//вибрация вЫключить
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-						if (vibra==1){
-							vibrate(2,150,70);
-						}
-						if ( vibra > 0 ){
-							vibra--;
-						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
-						repaint_screen_lines(0, 176);
-					//вибрация включить
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 150) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-						vibrate(2,150,70);
-						if ( vibra < 1 ){
-							vibra++;
-						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
-						repaint_screen_lines(0, 176);
-					};		
-				}else if (option==2){
-					//График минус
-					if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-						if (vibra==1){
-							vibrate(2,150,70);
-						}
-						if ( graphik > 0 ){
-							graphik--;
-						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
-						repaint_screen_lines(0, 176);
-					//График плюс
-					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-						if (vibra==1){
-							vibrate(2,150,70);
-						}
-						if ( graphik < 5 ){
-							graphik++;
-						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
-						repaint_screen_lines(0, 176);
-					//Таймаут минус
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
 						if (vibra==1){
 							vibrate(2,150,70);
 						}
-						if ((INACTIVITY_PERIOD/1000) > 30){
-							INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
+						if (option==1){
+							if ( vibra > 0 ){
+								vibra--;
+							}
+						}else if (option==2){ //Таймаут минус
+							if ((INACTIVITY_PERIOD/1000) > 30){
+								INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
+							}
 						}
 						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
-					//Таймаут плюс
+					//вибрация включить
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-						if (vibra==1){
+						if (option==1){
 							vibrate(2,150,70);
-						}
-						if ((INACTIVITY_PERIOD/1000) < 250 ){
-							INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
+							if ( vibra < 1 ){
+								vibra++;
+							}
+						}else if (option==2){ //Таймаут плюс
+							if (vibra==1){
+								vibrate(2,150,70);
+							}
+							if ((INACTIVITY_PERIOD/1000) < 250 ){
+								INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
+							}
 						}
 						draw_calend_option_menu(yearoffset,vibra,graphik);
 						repaint_screen_lines(0, 176);
+					};		
+					if (option==2){
 					//кнопка отмены
-					}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
+					if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
 						if (vibra==1){
 							vibrate(1,70,0);
 						}
@@ -1434,8 +1419,9 @@ int dispatch_calend_screen (void *param){
 						}
 						draw_month(day, calend->month, calend->year);
 						repaint_screen_lines(0, 176);
-					};
-				};						
+					}
+				}
+			}					
 			// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
 			set_update_period(1, INACTIVITY_PERIOD);
 			break;
