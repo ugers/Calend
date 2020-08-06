@@ -6,6 +6,8 @@
 #ifndef __CALEND_H__
 #define __CALEND_H__
 
+#include "libbip.h"
+
 // Значения цветовой схемы 
 #define CALEND_COLOR_BG					0	//	фон  календаря;
 #define CALEND_COLOR_MONTH				1	//	цвет названия текущего месяца;
