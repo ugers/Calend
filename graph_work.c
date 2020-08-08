@@ -197,12 +197,12 @@ struct calend_ *	calend = *calend_p;						//	указатель на данны�
 /*
  0:	CALEND_COLOR_BG					фон календаря;
  1:	CALEND_COLOR_MONTH				цвет названия текущего месяца;
- 2:	CALEND_COLOR_YEAR				цвет текущего года;	фон  чисел рабочего дня в ночь;
+ 2:	CALEND_COLOR_YEAR				цвет текущего года,	фон  чисел рабочего дня в ночь;
  3:	CALEND_COLOR_WORK_NAME			цвет названий дней будни;
- 4: CALEND_COLOR_HOLY_NAME_BG		фон	 названий дней выходные; фон  чисел текущего месяца выходные при работе;
+ 4: CALEND_COLOR_HOLY_NAME_BG		фон	 названий дней выходные, фон  чисел текущего месяца выходные при работе;
  5:	CALEND_COLOR_HOLY_NAME_FG		цвет названий дней выходные;
  6:	CALEND_COLOR_SEPAR				цвет разделителей календаря;
- 7:	CALEND_COLOR_NOT_CUR_WORK		цвет чисел НЕ текущего месяца будни; фон  чисел рабочего дня в день;
+ 7:	CALEND_COLOR_NOT_CUR_WORK		цвет чисел НЕ текущего месяца будни, фон  чисел рабочего дня в день;
  8:	CALEND_COLOR_NOT_CUR_HOLY_BG	фон  чисел НЕ текущего месяца выходные;
  9:	CALEND_COLOR_NOT_CUR_HOLY_FG	цвет чисел НЕ текущего месяца выходные;
 10:	CALEND_COLOR_CUR_WORK			цвет чисел текущего месяца будни;
@@ -455,7 +455,7 @@ for (unsigned i=1; (i<=7*6);i++){
 			};
 		};		
 	// если рабочие дни текущего месяца
-	} else if (graphik != 6 ){
+	} else if (graphik != 8 ){
 		if ((calend->year == datetime.year)  && (d >= 1)){
 				for(char nm = 1; nm <= 12; nm++){	
 					if (m == nm){
@@ -467,12 +467,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -483,7 +482,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 2 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -498,17 +497,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -519,17 +516,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -540,52 +535,103 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};			
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 6 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 6 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};	
 						}else if  (m == 2 ){ //февраль
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -594,12 +640,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -610,7 +655,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 0 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -625,17 +670,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -648,16 +691,13 @@ for (unsigned i=1; (i<=7*6);i++){
 								}
 								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -668,52 +708,103 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};	
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 1 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 1 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};
 						}else if  (m == 3 ){ //март
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -722,12 +813,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -738,7 +828,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 1 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -753,17 +843,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -774,17 +862,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -795,48 +881,99 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 6 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 5 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
@@ -849,12 +986,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -865,7 +1001,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 2 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -880,17 +1016,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -901,17 +1035,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -922,48 +1054,99 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 4 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 1 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 1,2 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 0 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 1,2 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
@@ -976,12 +1159,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -992,7 +1174,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 2 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1007,17 +1189,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1028,17 +1208,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1049,48 +1227,99 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 7 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 6 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
@@ -1103,12 +1332,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1119,7 +1347,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 0 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1134,17 +1362,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1155,17 +1381,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1176,52 +1400,103 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};	
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 2 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 1 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};
 						}else if  (m == 7 ){ //июль
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -1230,12 +1505,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1246,7 +1520,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 0 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1261,17 +1535,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1282,17 +1554,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1303,52 +1573,103 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 7 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};	
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 8 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 7 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};
 						}else if  (m == 8 ){ //август
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -1358,11 +1679,9 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1373,7 +1692,6 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 1 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1389,16 +1707,13 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1410,16 +1725,13 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1431,20 +1743,44 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
+								};							
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 4 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
-							} else if(graphik == 5){ // 2д2в2н
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 6 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1452,31 +1788,56 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 3 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 2 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							};						
-							}else if  (m == 9 ){ //сентябрь
+						}else if  (m == 9 ){ //сентябрь
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
@@ -1484,12 +1845,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1500,7 +1860,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 2 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1515,17 +1875,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1536,17 +1894,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1557,21 +1913,46 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 4 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1579,30 +1960,57 @@ for (unsigned i=1; (i<=7*6);i++){
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
+									
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
+								
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};	
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 10 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 9 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};
 						}else if  (m == 10 ){ //октябрь
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -1611,12 +2019,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1627,7 +2034,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 2 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1642,17 +2049,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1663,17 +2068,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1684,52 +2087,103 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 4 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
-							};	
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 4 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 3 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							};
 						}else if  (m == 11 ){ //ноябрь
 							if(graphik == 0){ // 1/1
 								char mouthoffset;
@@ -1738,12 +2192,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1754,7 +2207,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 0 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1769,17 +2222,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1790,17 +2241,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
@@ -1811,48 +2260,99 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 11 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 10 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
@@ -1865,12 +2365,11 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 1 + yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
@@ -1881,7 +2380,7 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else {
 									mouthoffset = 0 + yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}
-								frame = 0; //заливка
+								
 								if ((d + mouthoffset) % 3 == 0) { //проверка на нечетность
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
@@ -1896,17 +2395,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
@@ -1917,17 +2414,15 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};	
@@ -1938,48 +2433,99 @@ for (unsigned i=1; (i<=7*6);i++){
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на нечетность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);	
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
-							} else if(graphik == 5){ // 2д2в2н
+							} else if(graphik == 5){ // д.д.н.н.в.в.
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}else{
+									mouthoffset = 5 + yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
+								}
+								if ((d + mouthoffset+4) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);		
+								}else{		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
+								};	
+								if ((d + mouthoffset+3) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								//ночные
+								if ((d + mouthoffset+1) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset+2) % 6 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 6){ // 2д2в2н
 								char mouthoffset;
 								if (isLeapYear(year)>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}
+								
 								if  ((d + mouthoffset) % 2 == 0 ){ //проверка на четность
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ( ((d + mouthoffset) / 2) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								} else {		//добавляем нечетные и получаем график
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 								if ((d + mouthoffset - 2) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 								if ((d + mouthoffset - 3) % 8 == 0 ){ //из четных выбираем четные чтобы было смещение
-									frame = 0; //заливка
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+							} else if(graphik == 7){ // 3д3в3н
+								char mouthoffset;
+								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+									mouthoffset = 5 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}else{
+									mouthoffset = 4 + yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
+								}
+								if  ((d + mouthoffset) % 3 == 0 ){ //проверка на четность
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ( ((d + mouthoffset) / 3) % 2 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_HOLY_NAME_BG] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								} else {		//добавляем нечетные и получаем график
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
+								};
+								if ((d + mouthoffset + 3) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 2) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
+									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
+									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
+								};
+								if ((d + mouthoffset + 1) % 12 == 0 ){ //из четных выбираем четные чтобы было смещение
 									bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_YEAR] &COLOR_MASK); 
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
@@ -2098,23 +2644,28 @@ void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
 	
 	char *settings_string_ru[] = {	
 			 "Настройки", "Смещение дней", "Вибрация", 	"Вкл.",
-			 "Выкл.", "График", "Время выхода,сек.", "д.н.о.в","2д2в2н"};
+			 "Выкл.", "График", "Время выхода,сек.", "д.н.о.в","2д2н2в","2д2в2н",
+			 "3д3в3н"};
 
 	char *settings_string_en[] = {	
 			 "Settings", "Days offset", "Vibration", "On",
-			 "Off", "Timetable", "Exit time,sec.", "d.n.s.h","2d2h2n"};
+			 "Off", "Timetable", "Exit time,sec.", "d.n.s.h","2d2n2h","2d2h2n",
+			 "3d3h3n"};
 
 	char *settings_string_it[] = {	
 			"Impostazioni", "Offset giorno", "Vibrazione", "On",
-			"Off", "Schedule", "Ora di uscita, sec.", "d.n.s.h","2d2h2n"};
+			"Off", "Schedule", "Ora di uscita, sec.", "d.n.s.h","2d2n2h","2d2h2n",
+			 "3d3h3n"};
 			 
 	char *settings_string_fr[] = {	
 			"Paramètres", "Décalage du jour", "Vibreur", "On",
-			"Off", "Schedule", "Exit time, sec.", "d.n.s.h","2d2h2n"};
+			"Off", "Schedule", "Exit time, sec.", "d.n.s.h","2d2n2h","2d2h2n",
+			 "3d3h3n"};
 			 
 	char *settings_string_es[] = {	
 			"Configuración", "Compensación de día", "Vibrar", "On",
-			"Off", "Programación", "Tiempo de salida,seg.", "d.n.s.h","2d2h2n"};
+			"Off", "Programación", "Tiempo de salida,seg.", "d.n.s.h","2d2n2h","2d2h2n",
+			 "3d3h3n"};
 			
 	char**	settings_string;
 	
@@ -2205,6 +2756,14 @@ void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
 				break;
 			}
 			case 6:{
+				text_out_center(settings_string[9], 88, OPT1_HEIGHT);//надпись,ширина,высота
+				break;
+			}
+			case 7:{
+				text_out_center(settings_string[10], 88, OPT1_HEIGHT);//надпись,ширина,высота
+				break;
+			}			
+			case 8:{
 				text_out_center(settings_string[4], 88, OPT1_HEIGHT);//надпись,ширина,высота
 				break;
 			}
@@ -2341,18 +2900,12 @@ int dispatch_calend_screen (void *param){
 							if (vibra==1){
 								vibrate(2,150,70);
 							}
-						if (option==1){
-							if(graphik == 4){
-								if (yearoffset < 8){
-									yearoffset++;
-								}
-							}else{									
-								if (yearoffset < 3){
-									yearoffset++;
-								}
+						if (option==1){								
+							if (yearoffset < 12){
+								yearoffset++;
 							}
 						}else if (option==2){ //график плюс
-							if ( graphik < 5 ){
+							if ( graphik < 8 ){
 								graphik++;
 							}
 						}
