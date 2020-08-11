@@ -1,9 +1,3 @@
-#define BipEmulator
-#ifdef BipEmulator
-	#include "libbip.h"
-#else
-	#include <libbip.h>
-#endif
 void draw_cross(int x_center,int y_center,int width) {
 	draw_horizontal_line(y_center, x_center-(width/2), x_center+(width/2));//высота,начало,конец
 	draw_vertical_line(x_center, y_center-(width/2), y_center+(width/2));//старт,начало,конец

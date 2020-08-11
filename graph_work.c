@@ -74,9 +74,9 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	calend = *calend_p;						//	указатель на данные необходимо сохранить для исключения 
 											//	высвобождения памяти функцией reg_menu
 	#ifdef BipEmulator
-	*calend_p = (calend_*)NULL;						//	обнуляем указатель для передачи в функцию reg_menu
+		*calend_p = (calend_*)NULL;						//	обнуляем указатель для передачи в функцию reg_menu
 	#else
-	*calend_p = NULL;						//	обнуляем указатель для передачи в функцию reg_menu
+		*calend_p = NULL;						//	обнуляем указатель для передачи в функцию reg_menu
 	#endif
 
 	// 	создаем новый экран, при этом указатели temp_buf_1 и temp_buf_2 были равны 0 и память не была высвобождена	
@@ -102,9 +102,9 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	// очистим память под данные
 	_memclr(calend, sizeof(struct calend_));
 	#ifdef BipEmulator
-	calend->proc = (Elf_proc_*)param0;
+		calend->proc = (Elf_proc_*)param0;
 	#else
-	calend->proc = param0;
+		calend->proc = param0;
 	#endif
 	
 	// запомним адрес указателя на функцию в которую необходимо вернуться после завершения данного экрана
