@@ -24,6 +24,7 @@
 */
 
 #include "graph_work.h"
+#include "bip_shapes.h"
 //#define DEBUG_LOG
 //#define BipEmulator
 #ifdef BipEmulator
@@ -144,11 +145,7 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	if((calend_opt.graphik_opt<0)&&(calend_opt.graphik_opt>8)){
 		graphik = 0;
 	}else{
-		//#ifdef BipEmulator
-		//	graphik = 0;
-		//#else
 			graphik = calend_opt.graphik_opt;
-		//#endif
 	}
 	
 	_memclr(&calend_opt, sizeof(struct calend_opt_));
@@ -2627,33 +2624,31 @@ void key_press_calend_screen(){
 		show_menu(calend->ret_f, (unsigned int)show_calend_screen);
 	#endif
 };
-
-void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
-	
+void draw_calend_option_menu(char yearoffset,short vibra,char graphik,unsigned char color_scheme){
 	char *settings_string_ru[] = {	
 			 "Настройки", "Смещение дней", "Вибрация", 	"Вкл.",
-			 "Выкл.", "График", "Время выхода,сек.", "д.н.о.в","2д2н2в","2д2в2н",
-			 "3д3в3н"};
+			 "Выкл.", "График", "Время выхода,сек.", "д.н.о.в","2д2н2в","2д2в2н2в",
+			 "3д3в3н3в"};
 
 	char *settings_string_en[] = {	
 			 "Settings", "Days offset", "Vibration", "On",
-			 "Off", "Timetable", "Exit time,sec.", "d.n.s.h","2d2n2h","2d2h2n",
-			 "3d3h3n"};
+			 "Off", "Timetable", "Exit time,sec.", "d.n.s.h","2d2n2h","2d2h2n2h",
+			 "3d3h3n3h"};
 
 	char *settings_string_it[] = {	
 			"Impostazioni", "Offset giorno", "Vibrazione", "On",
-			"Off", "Schedule", "Ora di uscita, sec.", "d.n.s.h","2d2n2h","2d2h2n",
-			 "3d3h3n"};
+			"Off", "Schedule", "Ora di uscita, sec.", "d.n.s.h","2d2n2h","2d2h2n2h",
+			 "3d3h3n3h"};
 			 
 	char *settings_string_fr[] = {	
 			"Paramètres", "Décalage du jour", "Vibreur", "On",
-			"Off", "Schedule", "Exit time, sec.", "d.n.s.h","2d2n2h","2d2h2n",
-			 "3d3h3n"};
+			"Off", "Schedule", "Exit time, sec.", "d.n.s.h","2d2n2h","2d2h2n2h",
+			 "3d3h3n3h"};
 			 
 	char *settings_string_es[] = {	
 			"Configuración", "Compensación de día", "Vibrar", "On",
-			"Off", "Programación", "Tiempo de salida,seg.", "d.n.s.h","2d2n2h","2d2h2n",
-			 "3d3h3n"};
+			"Off", "Programación", "Tiempo de salida,seg.", "d.n.s.h","2d2n2h","2d2h2n2h",
+			 "3d3h3n3h"};
 			
 	char**	settings_string;
 	
@@ -2681,21 +2676,33 @@ void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
 	};
 	char text_yearoffset[3];
 	char text_timerexit[5];
-	set_bg_color(COLOR_BLACK);
+	if ((color_scheme == 0)||(color_scheme == 2)||(color_scheme == 4)) {
+		set_bg_color(COLOR_BLACK);
+	}else {
+		set_bg_color(COLOR_WHITE);
+	}
 	fill_screen_bg();
 	//опция 1 минус
 	set_fg_color (COLOR_RED);
-	draw_filled_rect(0, 48, 56, 81);//начало X/начало У/конец Х/конец У
+	//draw_filled_rect(0, 48, 56, 81);//начало X/начало У/конец Х/конец У
+	// circle function 
+	draw_hex(27,63, 35);
 	//опция 2 минус
-	draw_filled_rect(0, 108, 56, 141);//начало X/начало У/конец Х/конец У	
+	//draw_filled_rect(0, 108, 56, 141);//начало X/начало У/конец Х/конец У
+	draw_hex(27,122, 35);
 	//опция 1 плюс
 	set_fg_color (COLOR_GREEN);
-	draw_filled_rect(120, 48, 176, 81);//начало X/начало У/конец Х/конец У
+	//draw_filled_rect(120, 48, 176, 81);//начало X/начало У/конец Х/конец У
+	draw_hex(147,63, 35);
 	//опция 2 плюс
-	draw_filled_rect(120, 108, 176, 141);//начало X/начало У/конец Х/конец У
+	//draw_filled_rect(120, 108, 176, 141);//начало X/начало У/конец Х/конец У
+	draw_hex(147,122, 35);
 	set_graph_callback_to_ram_1();
-	//load_font();// подгружаем шрифты
-	set_fg_color(COLOR_WHITE);
+	if ((color_scheme == 0) || (color_scheme == 2) || (color_scheme == 4)) {
+		set_fg_color(COLOR_WHITE);
+	}else {
+		set_fg_color(COLOR_BLACK);
+	}
 	#define OPT1_HEIGHT				56		//	высота текста и стрелок Опции 1
 	#define OPT2_HEIGHT				115		//	высота текста и стрелок Опции 2
 	if (option==1){
@@ -2765,28 +2772,36 @@ void draw_calend_option_menu(char yearoffset,short vibra,char graphik){
 		set_fg_color (COLOR_RED);
 		draw_filled_rect(0, 146, 88, 176); //начало X/начало У/конец Х/конец У
 			// при достижении таймера обновления выходим
-	#ifndef BipEmulator
-		show_res_by_id(ICON_CANCEL_RED, 35, 153); 
+	#ifdef BipEmulator
+		show_res_by_id(416, 35, 153); 
+	#else
+		show_res_by_id(ICON_CANCEL_RED, 35, 153);
 	#endif
 		// кнопка сохранить
 		set_fg_color (COLOR_GREEN);
 		draw_filled_rect(88, 146, 176, 176);//начало X/начало У/конец Х/конец У
-	#ifndef BipEmulator
-		show_res_by_id(ICON_OK_GREEN, 125, 153); 
+	#ifdef BipEmulator
+		show_res_by_id(417, 125, 153);
+	#else
+		show_res_by_id(ICON_OK_GREEN, 125, 153);
 	#endif
 	};
 	//опция 1 минус
 	set_bg_color(COLOR_RED);
-	set_fg_color(COLOR_WHITE);
+	if ((color_scheme == 0) || (color_scheme == 2) || (color_scheme == 4)) {
+		set_fg_color(COLOR_WHITE);
+	}else {
+		set_fg_color(COLOR_BLACK);
+	}
 	text_out_center("←", 27, OPT1_HEIGHT); //надпись,ширина,высота
 	//опция 2 минус
 	text_out_center("←", 27, OPT2_HEIGHT); //надпись,ширина,высота
 	//опция 1 плюс
 	set_bg_color(COLOR_GREEN);
-	set_fg_color(COLOR_WHITE);
-	text_out_center("→", 150, OPT1_HEIGHT); //надпись,ширина,высота
+	//set_fg_color(COLOR_WHITE);
+	text_out_center("→", 149, OPT1_HEIGHT+1); //надпись,ширина,высота
 	//опция 2 минус
-	text_out_center("→", 150, OPT2_HEIGHT); //надпись,ширина,высота
+	text_out_center("→", 149, OPT2_HEIGHT+1); //надпись,ширина,высота
 	
 	repaint_screen_lines(0, 176);		
 };
@@ -2873,7 +2888,7 @@ int dispatch_calend_screen (void *param){
 								graphik--;
 							}
 						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 						repaint_screen_lines(0, 176);
 					//смещение плюс
 					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
@@ -2889,7 +2904,7 @@ int dispatch_calend_screen (void *param){
 								graphik++;
 							}
 						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 						repaint_screen_lines(0, 176);
 					//вибрация вЫключить
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
@@ -2905,7 +2920,7 @@ int dispatch_calend_screen (void *param){
 								INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
 							}
 						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 						repaint_screen_lines(0, 176);
 					//вибрация включить
 					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
@@ -2922,7 +2937,7 @@ int dispatch_calend_screen (void *param){
 								INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
 							}
 						}
-						draw_calend_option_menu(yearoffset,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 						repaint_screen_lines(0, 176);
 					};		
 					if (option==2){
@@ -2974,7 +2989,7 @@ int dispatch_calend_screen (void *param){
 				switch(option){
 					case 0:{
 						option = 1;
-						draw_calend_option_menu(yearoffset,vibra,graphik);
+						draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 						repaint_screen_lines(0, 176); 
 						break;
 					}
@@ -3074,7 +3089,7 @@ int dispatch_calend_screen (void *param){
 				};
 				case 1:{
 					option = 2;
-					draw_calend_option_menu(yearoffset,vibra,graphik);
+					draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 					repaint_screen_lines(0, 176);
 					break;
 				}
@@ -3104,7 +3119,7 @@ int dispatch_calend_screen (void *param){
 				};
 				case 2:{
 					option = 1;
-					draw_calend_option_menu(yearoffset,vibra,graphik);
+					draw_calend_option_menu(yearoffset,vibra,graphik,calend->color_scheme);
 					repaint_screen_lines(0, 176);
 					break;
 				}
