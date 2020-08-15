@@ -6,7 +6,9 @@
 #ifndef __CALEND_H__
 #define __CALEND_H__
 
+//#ifdef BipEmulator
 #include "libbip.h"
+//#endif
 
 // Значения цветовой схемы 
 #define CALEND_COLOR_BG					0	//	фон  календаря;
@@ -67,10 +69,10 @@ unsigned int INACTIVITY_PERIOD = 30000;		//	время по прошествии
 
 // сохраняемые опции календаря
 struct calend_opt_ {
-		unsigned char	color_scheme;	//	цветовая схема
-		unsigned char yearoffset_opt; //смещение графика
-		unsigned char vibra_opt; //вибрация
-		unsigned char graphik_opt; //график работы
+	unsigned char	color_scheme;	//	цветовая схема
+	unsigned char	yearoffset_opt; //	смещение графика
+	unsigned char	vibration_opt;	//	вибрация
+	unsigned char	graphik_opt;	//	график работы
 };
 
 // текущие данные просматриваемого/редактируемого календаря
@@ -78,6 +80,9 @@ struct calend_ {
 	Elf_proc_* 	proc;				//	указатель на данные запущенного процесса
 		void* 	ret_f;				//	адрес функции возврата
 unsigned char	color_scheme;		//	цветовая схема
+unsigned char	vibration_opt;		//	вибрация
+unsigned char	yearoffset;		//	смещение графика
+unsigned char	graphik;		//	график работы
 									//	отображаемый месяц
 unsigned int 	day;				//	день
 unsigned int 	month;				//	месяц
