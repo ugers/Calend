@@ -17,7 +17,6 @@
 	В приложении строиться график до конца текущего года. При наступлении следующего года нужно менять смещение дня.
 */
 #include "graph_work.h"
-//#include "bip_shapes.h"
 //#define DEBUG_LOG
 //#define BipEmulator
 #ifdef BipEmulator
@@ -320,7 +319,13 @@ for (unsigned i=1; (i<=7);i++){
 		text_out_center(weekday_string_short[i], pos_x1 + WIDTH/2, pos_y1 + (calend_name_height-get_text_height())/2 );	
 }
 int calend_days_y_base = CALEND_Y_BASE+1+V_MARGIN+calend_name_height+V_MARGIN+1;
-if (isLeapYear(year)>0) day_month[2]=29;
+	char LeapYear;
+if (isLeapYear(year)>0){
+	day_month[2]=29;
+	LeapYear = 1;
+}else{
+	LeapYear = 0;
+}
 unsigned char d=wday(1,month, year);
 unsigned char m=month;
 	struct datetime_ datetime;
@@ -370,7 +375,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						if (m == 1){ 		//январь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -383,7 +388,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -396,7 +401,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -413,7 +418,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -430,7 +435,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -447,7 +452,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -473,7 +478,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 ночь  / 4 = 1 выходной / 3 = 1,2 выходной / 2 = 1 ночь / 5 = 1,2 день
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -498,7 +503,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 6 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 6 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -530,7 +535,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 2 ){ //февраль
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -543,7 +548,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -556,7 +561,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -573,7 +578,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -590,7 +595,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -607,7 +612,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -633,7 +638,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -658,7 +663,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -690,7 +695,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 3 ){ //март
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -703,7 +708,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -716,7 +721,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -733,7 +738,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -750,7 +755,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -767,7 +772,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -793,7 +798,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -818,7 +823,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 6 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -850,7 +855,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 4 ){ //апрель
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -863,7 +868,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -876,7 +881,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -893,7 +898,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -910,7 +915,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -927,7 +932,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -953,7 +958,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -978,7 +983,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 1,2 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 1,2 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1010,7 +1015,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 5 ){ //май
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1023,7 +1028,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1036,7 +1041,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1053,7 +1058,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1070,7 +1075,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1087,7 +1092,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1113,7 +1118,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1138,7 +1143,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 7 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 6 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1170,7 +1175,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 6 ){  //июнь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1183,7 +1188,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1196,7 +1201,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1213,7 +1218,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1230,7 +1235,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1247,7 +1252,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1273,7 +1278,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1298,7 +1303,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1330,7 +1335,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 7 ){ //июль
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1343,7 +1348,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1356,7 +1361,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1373,7 +1378,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1390,7 +1395,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1407,7 +1412,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1433,7 +1438,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 7 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1458,7 +1463,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 8 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 7 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1490,7 +1495,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 8 ){ //август
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1503,7 +1508,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1516,7 +1521,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};	
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1533,7 +1538,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1550,7 +1555,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1567,7 +1572,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};							
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1593,7 +1598,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 6 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1618,7 +1623,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1650,7 +1655,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 9 ){ //сентябрь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1663,7 +1668,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1676,7 +1681,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1693,7 +1698,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1710,7 +1715,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1727,7 +1732,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1753,7 +1758,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1778,7 +1783,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 10 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 9 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1810,7 +1815,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 10 ){ //октябрь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1823,7 +1828,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1836,7 +1841,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -1853,7 +1858,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1870,7 +1875,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1887,7 +1892,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -1913,7 +1918,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -1938,7 +1943,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -1970,7 +1975,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 11 ){ //ноябрь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -1983,7 +1988,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -1996,7 +2001,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -2013,7 +2018,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2030,7 +2035,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2047,7 +2052,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -2073,7 +2078,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 2 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2098,7 +2103,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 11 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 10 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -2130,7 +2135,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 						}else if  (m == 12 ){ //декабрь
 							char mouthoffset;
 							if(calend->graphik == 0){ // 1/1
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4 
 								}else{
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       1 = 1,3 / 0 = 2,4
@@ -2143,7 +2148,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);	
 								};
 							}else if (calend->graphik == 1) { // 1/2
-								if (isLeapYear(year) > 0) { //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 1 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
 								}else {
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       2 = 1,4 / 0 = 3,6 / 1 = 2,5
@@ -2156,7 +2161,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
 								};
 							} else if(calend->graphik == 2){ // 1/3
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,5 / 0 = 2,6 / 3 = 3,7 / 2 = 4,8
@@ -2173,7 +2178,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 3){ // 2/2
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2190,7 +2195,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_WORK_NAME]);
 								};	
 							} else if(calend->graphik == 4){ // д.н.о.в
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2207,7 +2212,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);		
 								};
 							} else if(calend->graphik == 5){ // д.д.н.н.в.в.
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
 								}else{
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       1 = 1,2 день / 0 = 1 вых 2,3 день / 2 = 1 день 2,3 ночь / 3 = 1,2 ночь
@@ -2233,7 +2238,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 6){ // 2д2в2н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 0 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
 								}else{
 									mouthoffset = 3 + calend->yearoffset; 					//смещение дня       1 = 1,2 / 0 и 4 = 2,3 / 3 = 3,4 / 2 = 1
@@ -2258,7 +2263,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 									fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);			
 								};
 							} else if(calend->graphik == 7){ // 3д3в3н
-								if (isLeapYear(year)>0){ //проверка высокостный год или нет
+								if (LeapYear>0){ //проверка высокостный год или нет
 									mouthoffset = 5 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
 								}else{
 									mouthoffset = 4 + calend->yearoffset; 					//смещение дня       0 = 1,2,3 - день / 1 = 2,3 день / 2 = 1 день / 3 = 1,2,3 вых / 4 = 1,2 вых/ 5 = 1 вых/ 6 = 1,2,3 ночь
@@ -2291,7 +2296,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 				};
 			};
 		}else{
-			if ( col > 5 ){  // если выходные 
+			if (col > 5){  // если выходные 
 				if (month == m){
 					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_BG]); 
 					fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_FG]);
@@ -2310,21 +2315,26 @@ for (unsigned char i=1; (i<=7*6);i++){
 			}
 		}
 	} else {
-		if ( col > 5 ){  // если выходные 
-			if (month == m){
-				bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_BG]); 
-				fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_FG]);
-			} else {
-				bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_BG]); 
-				fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG]);
+		if (calend->graphik == 8) {
+			if (col > 5) {  // если выходные 
+				if (month == m) {
+					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_BG]);
+					fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_HOLY_FG]);
+				}
+				else {
+					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_BG]);
+					fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_HOLY_FG]);
+				}
 			}
-		} else {		//	если будни
-			if (month == m){
-				bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG]); 
-				fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
-			} else {
-				bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG]); 
-				fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+			else {		//	если будни
+				if (month == m) {
+					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG]);
+					fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_CUR_WORK]);
+				}
+				else {
+					bg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_BG]);
+					fg_color = (color_scheme[calend->color_scheme][CALEND_COLOR_NOT_CUR_WORK]);
+				}
 			}
 		}
 	}
@@ -2383,7 +2393,9 @@ void key_press_calend_screen(){
 		show_menu(calend->ret_f, (unsigned int)show_calend_screen);
 	#endif
 };
-void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,unsigned char color_scheme){
+void draw_calend_option_menu(){
+	struct calend_**    calend_p = (struct calend_ **)get_ptr_temp_buf_2();    //  указатель на указатель на данные экрана
+	struct calend_ *	calend = *calend_p;			//	указатель на данные экрана
 	if (option != 0) {
 		char* settings_string_ru[] = {
 				 "Настройки", "Смещение дней", "Вибрация", 	"Вкл.",
@@ -2407,30 +2419,30 @@ void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,un
 				 "3d3h3n3h" };
 		char** settings_string;
 		switch (get_selected_locale()) {
-		case locale_ru_RU: {
-			settings_string = settings_string_ru;
-			break;
-		}
-		case locale_it_IT: {
-			settings_string = settings_string_it;
-			break;
-		}
-		case locale_fr_FR: {
-			settings_string = settings_string_fr;
-			break;
-		}
-		case locale_es_ES: {
-			settings_string = settings_string_es;
-			break;
-		}
-		default: {
-			settings_string = settings_string_en;
-			break;
-		}
+			case locale_ru_RU: {
+				settings_string = settings_string_ru;
+				break;
+			}
+			case locale_it_IT: {
+				settings_string = settings_string_it;
+				break;
+			}
+			case locale_fr_FR: {
+				settings_string = settings_string_fr;
+				break;
+			}
+			case locale_es_ES: {
+				settings_string = settings_string_es;
+				break;
+			}
+			default: {
+				settings_string = settings_string_en;
+				break;
+			}
 		};
 		char text_yearoffset[3];
 		char text_timerexit[5];
-		if ((color_scheme == 0) || (color_scheme == 2) || (color_scheme == 4)) {
+		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
 			set_bg_color(COLOR_BLACK);
 		}
 		else {
@@ -2448,7 +2460,7 @@ void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,un
 		//опция 2 плюс
 		draw_filled_rect(128, 108, 176, 141);//начало X/начало У/конец Х/конец У
 		set_graph_callback_to_ram_1();
-		if ((color_scheme == 0) || (color_scheme == 2) || (color_scheme == 4)) {
+		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
 			set_fg_color(COLOR_WHITE);
 		}
 		else {
@@ -2462,11 +2474,11 @@ void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,un
 			draw_horizontal_line(23, H_MARGIN, 176 - H_MARGIN);	// линия отделяющая заголовок от меню
 			//опция 1 - Смещение дней
 			text_out_center(settings_string[1], 88, 28);//надпись,X,Y
-			_sprintf(text_yearoffset, "%d", yearoffset);
+			_sprintf(text_yearoffset, "%d", calend->yearoffset);
 			text_out_center(text_yearoffset, 88, OPT1_HEIGHT); //надпись,X,Y
 			//опция 2 - Вибрация
 			text_out_center(settings_string[2], 88, 88);//надпись,X,Y
-			if (vibration_opt == 1) {
+			if (calend->vibration_opt == 1) {
 				text_out_center(settings_string[3], 88, OPT2_HEIGHT);//надпись,X,Y
 			}
 			else {
@@ -2478,43 +2490,43 @@ void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,un
 			text_out_center("↑", 88, 6);//надпись,X,Y
 			//опция 1 - График
 			text_out_center(settings_string[5], 88, 28);//надпись,X,Y
-			switch (graphik) {
-			case 0: {
-				text_out_center("1/1", 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 1: {
-				text_out_center("1/2", 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 2: {
-				text_out_center("1/3", 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 3: {
-				text_out_center("2/2", 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 4: {
-				text_out_center(settings_string[7], 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 5: {
-				text_out_center(settings_string[8], 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 6: {
-				text_out_center(settings_string[9], 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 7: {
-				text_out_center(settings_string[10], 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
-			case 8: {
-				text_out_center(settings_string[4], 88, OPT1_HEIGHT);//надпись,X,Y
-				break;
-			}
+			switch (calend->graphik) {
+				case 0: {
+					text_out_center("1/1", 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 1: {
+					text_out_center("1/2", 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 2: {
+					text_out_center("1/3", 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 3: {
+					text_out_center("2/2", 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 4: {
+					text_out_center(settings_string[7], 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 5: {
+					text_out_center(settings_string[8], 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 6: {
+					text_out_center(settings_string[9], 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 7: {
+					text_out_center(settings_string[10], 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
+				case 8: {
+					text_out_center(settings_string[4], 88, OPT1_HEIGHT);//надпись,X,Y
+					break;
+				}
 			};
 			//опция 2 - Время выхода
 			text_out_center(settings_string[6], 88, 88);
@@ -2541,7 +2553,7 @@ void draw_calend_option_menu(char yearoffset,short vibration_opt,char graphik,un
 		};
 		//опция 1 минус
 		set_bg_color(COLOR_RED);
-		if ((color_scheme == 0) || (color_scheme == 2) || (color_scheme == 4)) {
+		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
 			set_fg_color(COLOR_WHITE);
 		}
 		else {
@@ -2585,158 +2597,159 @@ int dispatch_calend_screen (void *param){
 	 struct gesture_ *gest = param;
 #endif
 	 int result = 0;
+
+	//для корректного возврата на начальный экран календаря определяем какой месяц был выбран и нужно ли выделять текущий день
+	if ((calend->year == datetime.year) && (calend->month == datetime.month)) {
+		day = datetime.day; //выделяем
+	}else {
+		day = 0; //не выделяем
+	}
+
 	switch (gest->gesture){
 		case GESTURE_CLICK: {
 			// вибрация при любом нажатии на экран
 			if (calend->vibration_opt==1){
 				vibrate (1, 40, 0);
 			}
-				if (option==0){
-					if ( gest->touch_pos_y < CALEND_Y_BASE ){ // кликнули по верхней строке
-						if (gest->touch_pos_x < 44){
-							if ( calend->year > 1600 ) calend->year--;
-						} else 
-						if (gest->touch_pos_x > (176-44)){
-							if ( calend->year < 3000 ) calend->year++;
-						} else {
-							calend->day 	= datetime.day;
-							calend->month 	= datetime.month;
-							calend->year 	= datetime.year;
-						}	
-						 if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-							day = datetime.day;
-						 } else {	
-							day = 0;
-						 }
-							draw_month(day, calend->month, calend->year);
-							repaint_screen_lines(1, 176);			
-					} else { // кликнули в календарь
-						calend->color_scheme = ((calend->color_scheme+1)%COLOR_SCHEME_COUNT);		
-						// сначала обновим экран
-						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-							day = datetime.day;
-						 } else {	
-							day = 0;
-						 }
-						draw_month(day, calend->month, calend->year);
-						repaint_screen_lines(1, 176);			
+			switch (option) {
+			case 0: {
+				if (gest->touch_pos_y < CALEND_Y_BASE) { // кликнули по верхней строке
+					if (gest->touch_pos_x < 44) {
+						if (calend->year > 1600) calend->year--;
 					}
-					break;
-				}else if ((option==1)||(option==2)){
+					else {
+						if (gest->touch_pos_x > (176 - 44)) {
+							if (calend->year < 3000) calend->year++;
+						}
+						else {
+							calend->day = datetime.day;
+							calend->month = datetime.month;
+							calend->year = datetime.year;
+						}
+					}
+					draw_month(day, calend->month, calend->year);
+					repaint_screen_lines(1, 176);
+				}
+				else { // кликнули в календарь
+					calend->color_scheme = ((calend->color_scheme + 1) % COLOR_SCHEME_COUNT);
+					// сначала обновим экран
+					if ((calend->year == datetime.year) && (calend->month == datetime.month)) {
+						day = datetime.day;
+					}
+					else {
+						day = 0;
+					}
+					draw_month(day, calend->month, calend->year);
+					repaint_screen_lines(1, 176);
+				}
+				break;
+			};
+			case 1:
+			case 2: {
 					//смещение минус
-					if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-							if (calend->vibration_opt==1){
-								vibrate(2,150,70);
-							}
-						if (option==1){
-							if (calend->yearoffset > 0){
+					if ((gest->touch_pos_y > 36) && (gest->touch_pos_y < 92) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 76)) {
+						if (calend->vibration_opt == 1) {
+							vibrate(2, 150, 70);
+						}
+						if (option == 1) {
+							if (calend->yearoffset > 0) {
 								calend->yearoffset--;
 							}
-						}else if (option==2){ //график минус
-							if ( calend->graphik > 0 ){
+						}
+						else if (option == 2) { //график минус
+							if (calend->graphik > 0) {
 								calend->graphik--;
 							}
 						}
-						draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
-						repaint_screen_lines(0, 176);
-					//смещение плюс
-					}else if (( gest->touch_pos_y >36) &&  ( gest->touch_pos_y < 92) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-							if (calend->vibration_opt==1){
-								vibrate(2,150,70);
-							}
-						if (option==1){								
-							if (calend->yearoffset < 20){
+						draw_calend_option_menu();
+						//смещение плюс
+					}else if ((gest->touch_pos_y > 36) && (gest->touch_pos_y < 92) && (gest->touch_pos_x > 100) && (gest->touch_pos_x < 176)) {
+						if (calend->vibration_opt == 1) {
+							vibrate(2, 150, 70);
+						}
+						if (option == 1) {
+							if (calend->yearoffset < 20) {
 								calend->yearoffset++;
 							}
-						}else if (option==2){ //график плюс
-							if ( calend->graphik < 8 ){
+						}
+						else if (option == 2) { //график плюс
+							if (calend->graphik < 8) {
 								calend->graphik++;
 							}
 						}
-						draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
-						repaint_screen_lines(0, 176);
-					//вибрация вЫключить
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 76)){
-						if (calend->vibration_opt==1){
-							vibrate(2,150,70);
+						draw_calend_option_menu();
+						//вибрация вЫключить
+					}else if ((gest->touch_pos_y > 94) && (gest->touch_pos_y < 146) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 76)) {
+						if (calend->vibration_opt == 1) {
+							vibrate(2, 150, 70);
 						}
-						if (option==1){
-							if (calend->vibration_opt > 0){
+						if (option == 1) {
+							if (calend->vibration_opt > 0) {
 								calend->vibration_opt--;
 							}
-						}else if (option==2){ //Таймаут минус
-							if (INACTIVITY_PERIOD > 30000){ //30000=30 сек.
-								INACTIVITY_PERIOD = INACTIVITY_PERIOD-10000;
+						}
+						else if (option == 2) { //Таймаут минус
+							if (INACTIVITY_PERIOD > 30000) { //30000=30 сек.
+								INACTIVITY_PERIOD = INACTIVITY_PERIOD - 10000;
 							}
 						}
-						draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
-						repaint_screen_lines(0, 176);
-					//вибрация включить
-					}else if (( gest->touch_pos_y >94) &&  ( gest->touch_pos_y < 146) &&  ( gest->touch_pos_x >100) &&  ( gest->touch_pos_x < 176)){
-						if (option==1){
-							vibrate(2,150,70);
-							if (calend->vibration_opt < 1){
+						draw_calend_option_menu();
+						//вибрация включить
+					}else if ((gest->touch_pos_y > 94) && (gest->touch_pos_y < 146) && (gest->touch_pos_x > 100) && (gest->touch_pos_x < 176)) {
+						if (option == 1) {
+							vibrate(2, 150, 70);
+							if (calend->vibration_opt < 1) {
 								calend->vibration_opt++;
 							}
-						}else if (option==2){ //Таймаут плюс
-							if (calend->vibration_opt==1){
-								vibrate(2,150,70);
+						}
+						else if (option == 2) { //Таймаут плюс
+							if (calend->vibration_opt == 1) {
+								vibrate(2, 150, 70);
 							}
-							if (INACTIVITY_PERIOD < 2500000 ){//2500000=250 сек.
-								INACTIVITY_PERIOD = INACTIVITY_PERIOD+10000;
+							if (INACTIVITY_PERIOD < 2500000) {//2500000=250 сек.
+								INACTIVITY_PERIOD = INACTIVITY_PERIOD + 10000;
 							}
 						}
-						draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
-						repaint_screen_lines(0, 176);
-					};		
-					if (option==2){
-					//кнопка отмены
-					if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >0) &&  ( gest->touch_pos_x < 88)){
-						if (calend->vibration_opt==1){
-							vibrate(1,70,0);
-						}
-						option = 0;
-						//возвращаемся на начальный экран календаря
-						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-							day = datetime.day;
-						}else{	
-							day = 0;
-						}
-						draw_month(day, calend->month, calend->year);
-						repaint_screen_lines(0, 176);
-					//кнопка сохранить
-					}else if (( gest->touch_pos_y >146) &&  ( gest->touch_pos_y < 176) &&  ( gest->touch_pos_x >88) &&  ( gest->touch_pos_x < 176)){
-						if (calend->vibration_opt==1){
-							vibrate(1,70,0);
-						}
-						option = 0;
-						// запишем настройки в флэш память
-						calend_opt.color_scheme = calend->color_scheme;	
-						calend_opt.yearoffset_opt = calend->yearoffset;
-						calend_opt.vibration_opt = calend->vibration_opt;
-						calend_opt.graphik_opt = calend->graphik;
-						ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
-						_memclr(&calend_opt, sizeof(struct calend_opt_));
-						//возвращаемся на начальный экран календаря
-						if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-							day = datetime.day;
-						}else{	
-							day = 0;
-						}
-						draw_month(day, calend->month, calend->year);
-						repaint_screen_lines(0, 176);
+						draw_calend_option_menu();
 					}
-				}
-			}					
-			// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
-			set_update_period(1, INACTIVITY_PERIOD);
+					if (option == 2) {
+						//кнопка отмены
+						if ((gest->touch_pos_y > 146) && (gest->touch_pos_y < 176) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 88)) {
+							if (calend->vibration_opt == 1) {
+								vibrate(1, 70, 0);
+							}
+							option = 0;
+							draw_month(day, calend->month, calend->year);
+							repaint_screen_lines(0, 176);
+						//кнопка сохранить
+						}else if ((gest->touch_pos_y > 146) && (gest->touch_pos_y < 176) && (gest->touch_pos_x > 88) && (gest->touch_pos_x < 176)) {
+							if (calend->vibration_opt == 1) {
+								vibrate(1, 70, 0);
+							}
+							option = 0;
+							// запишем настройки в флэш память
+							calend_opt.color_scheme = calend->color_scheme;
+							calend_opt.yearoffset_opt = calend->yearoffset;
+							calend_opt.vibration_opt = calend->vibration_opt;
+							calend_opt.graphik_opt = calend->graphik;
+							ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
+							_memclr(&calend_opt, sizeof(struct calend_opt_));
+							draw_month(day, calend->month, calend->year);
+							repaint_screen_lines(0, 176);
+						}
+					}
 			break;
-		};
+			}//end case 2
+		}
+		// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
+		set_update_period(1, INACTIVITY_PERIOD);
+		break;
+	};
 		case GESTURE_SWIPE_RIGHT: {	//	свайп направо
 			switch(option){
 				case 0:{
 					option = 1;
-					draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
+					draw_calend_option_menu();
 					repaint_screen_lines(0, 176); 
 					break;
 				}
@@ -2789,11 +2802,6 @@ int dispatch_calend_screen (void *param){
 				};
 				case 1:{
 					option = 0;
-					if ( (calend->year == datetime.year) && (calend->month == datetime.month) ){
-						day = datetime.day;
-					}else{	
-						day = 0;
-					}
 					draw_month(day, calend->month, calend->year);
 					repaint_screen_lines(0, 176);
 					break;
@@ -2823,7 +2831,7 @@ int dispatch_calend_screen (void *param){
 				}
 				case 1:{
 					option = 2;
-					draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
+					draw_calend_option_menu();
 					repaint_screen_lines(0, 176);
 					break;
 				}
@@ -2852,7 +2860,7 @@ int dispatch_calend_screen (void *param){
 				}
 				case 2:{
 					option = 1;
-					draw_calend_option_menu(calend->yearoffset,calend->vibration_opt,calend->graphik,calend->color_scheme);
+					draw_calend_option_menu();
 					repaint_screen_lines(0, 176);
 					break;
 				}
