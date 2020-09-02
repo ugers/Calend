@@ -24,7 +24,7 @@
 #else
 	#include <libbip.h>
 #endif
-unsigned char option=0;
+
 //	структура меню экрана календаря
 struct regmenu_ menu_calend_screen = {
 						55,
@@ -44,7 +44,6 @@ int main(int param0, char** argv){	//	переменная argv не опред�
 void show_calend_screen (void *param0){
 	struct calend_**    calend_p = (struct calend_ **)get_ptr_temp_buf_2();    //  указатель на указатель на данные экрана
 	struct calend_ *	calend;								//	указатель на данные экрана
-	struct calend_opt_ 	calend_opt;							//	опции календаря
 	#ifdef DEBUG_LOG
 		log_printf(5, "[show_calend_screen] param0=%X; *temp_buf_2=%X; menu_overlay=%d", (int)param0, (int*)get_ptr_temp_buf_2(), get_var_menu_overlay());
 		log_printf(5, " #calend_p=%X; *calend_p=%X", (int)calend_p, (int)*calend_p);
@@ -96,8 +95,11 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	calend->year 	= datetime.year;
 	// считаем опции из flash памяти, если значение в флэш-памяти некорректное то берем первую схему
 	// текущая цветовая схема хранится о смещению 0
-	(struct calend_opt_ *)pvPortMalloc(sizeof(struct calend_opt_ ));
-	ElfReadSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
+	// очистим память под данные
+	_memclr(&datetime, sizeof(struct datetime_));
+	struct calend_opt_ 	calend_opt;							//	опции календаря
+	_memclr(&calend_opt, sizeof(struct calend_opt_));
+	ElfReadSettings(ELF_INDEX_SELF, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 	if (calend_opt.color_scheme < COLOR_SCHEME_COUNT){
 		calend->color_scheme = calend_opt.color_scheme;
 	}else{ 
@@ -329,8 +331,10 @@ if (isLeapYear(year)>0){
 unsigned char d=wday(1,month, year);
 unsigned char m=month;
 	struct datetime_ datetime;
-	// получим текущую дату
-	get_current_date_time(&datetime);
+	_memclr(&datetime, sizeof(struct datetime_));
+	get_current_date_time(&datetime);	// получим текущую дату
+	int current_year = datetime.year;
+	_memclr(&datetime, sizeof(struct datetime_));
 if (d>1) {
      m=(month==1)?12:month-1;
      d=day_month[m]-d+2;
@@ -369,7 +373,7 @@ for (unsigned char i=1; (i<=7*6);i++){
 		};		
 	// если рабочие дни текущего месяца
 	} else if (calend->graphik != 8 ){
-		if ((calend->year == datetime.year)  && (d >= 1)){
+		if ((calend->year == current_year)  && (d >= 1)){
 				for(char nm = 1; nm <= 12; nm++){	
 					if (m == nm){
 						if (m == 1){ 		//январь
@@ -2732,7 +2736,7 @@ int dispatch_calend_screen (void *param){
 							calend_opt.yearoffset_opt = calend->yearoffset;
 							calend_opt.vibration_opt = calend->vibration_opt;
 							calend_opt.graphik_opt = calend->graphik;
-							ElfWriteSettings(calend->proc->index_listed, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
+							ElfWriteSettings(ELF_INDEX_SELF, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 							_memclr(&calend_opt, sizeof(struct calend_opt_));
 							draw_month(day, calend->month, calend->year);
 							repaint_screen_lines(0, 176);

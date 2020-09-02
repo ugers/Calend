@@ -1,7 +1,8 @@
 /*
 	(С) Волков Максим 2019 ( mr-volkov+bip@yandex.ru )
+	(С) ugers 2020
 	Календарь для Amazfit Bip
-	
+	График работы для Amazfit Bip
 */
 #ifndef __CALEND_H__
 #define __CALEND_H__
@@ -66,6 +67,7 @@
 
 
 unsigned int INACTIVITY_PERIOD = 30000;		//	время по прошествии которого выходим, 30 секунд
+unsigned char option = 0;						//переключатель тач скрина для меню опции
 
 // сохраняемые опции календаря
 struct calend_opt_ {
