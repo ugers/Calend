@@ -120,6 +120,11 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	}else{
 		calend->graphik = 0;
 	}
+	if((30000 < calend_opt.inactivity_period_opt) && (calend_opt.inactivity_period_opt < 260000)){
+		calend->inactivity_period = calend_opt.inactivity_period_opt;
+	}else{
+		calend->inactivity_period = 30000;
+	}
 	// очистим память под данные
 	_memclr(&calend_opt, sizeof(struct calend_opt_));
 //Напоминание о смене года и необходимости поменять смещение	
@@ -145,7 +150,7 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 set_display_state_value(8, 1);
 set_display_state_value(2, 1);
 // таймер на job на 20с где выход.
-set_update_period(1, INACTIVITY_PERIOD);
+set_update_period(1, calend->inactivity_period);
 }
 void draw_month(unsigned int day, unsigned int month, unsigned int year){
 struct calend_**    calend_p = (struct calend_ **)get_ptr_temp_buf_2();    //  указатель на указатель на данные экрана
@@ -849,7 +854,7 @@ void key_press_calend_screen(){
 		show_menu(calend->ret_f, (unsigned int)show_calend_screen);
 	#endif
 };
-void draw_calend_option_menu(){
+void draw_calend_option_menu(int bgColor, int fgColor){
 	struct calend_**    calend_p = (struct calend_ **)get_ptr_temp_buf_2();    //  указатель на указатель на данные экрана
 	struct calend_ *	calend = *calend_p;			//	указатель на данные экрана
 	if (option != 0) {
@@ -898,12 +903,7 @@ void draw_calend_option_menu(){
 		};
 		char text_yearoffset[3];
 		char text_timerexit[5];
-		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
-			set_bg_color(COLOR_BLACK);
-		}
-		else {
-			set_bg_color(COLOR_WHITE);
-		}
+		set_bg_color(bgColor);
 		fill_screen_bg();
 		//опция 1 минус
 		set_fg_color(COLOR_RED);
@@ -916,12 +916,7 @@ void draw_calend_option_menu(){
 		//опция 2 плюс
 		draw_filled_rect(128, 108, 176, 141);//начало X/начало У/конец Х/конец У
 		set_graph_callback_to_ram_1();
-		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
-			set_fg_color(COLOR_WHITE);
-		}
-		else {
-			set_fg_color(COLOR_BLACK);
-		}
+		set_fg_color(fgColor);
 	#define OPT1_HEIGHT				56		//	высота текста и стрелок Опции 1
 	#define OPT2_HEIGHT				116		//	высота текста и стрелок Опции 2
 		if (option == 1) {
@@ -929,16 +924,16 @@ void draw_calend_option_menu(){
 			text_out_center(settings_string[0], 88, 5); //надпись,ширина,высота
 			draw_horizontal_line(23, H_MARGIN, 176 - H_MARGIN);	// линия отделяющая заголовок от меню
 			//опция 1 - Смещение дней
-			text_out_center(settings_string[1], 88, 28);//надпись,X,Y
+			text_out_center(settings_string[1], 88, 28);//название опции,X,Y
 			_sprintf(text_yearoffset, "%d", calend->yearoffset);
-			text_out_center(text_yearoffset, 88, OPT1_HEIGHT); //надпись,X,Y
+			text_out_center(text_yearoffset, 88, OPT1_HEIGHT); //значение опции,X,Y
 			//опция 2 - Вибрация
-			text_out_center(settings_string[2], 88, 88);//надпись,X,Y
+			text_out_center(settings_string[2], 88, 88);//название опции,X,Y
 			if (calend->vibration_opt == 1) {
-				text_out_center(settings_string[3], 88, OPT2_HEIGHT);//надпись,X,Y
+				text_out_center(settings_string[3], 88, OPT2_HEIGHT);//значение опции,X,Y
 			}
 			else {
-				text_out_center(settings_string[4], 88, OPT2_HEIGHT);//надпись,X,Y
+				text_out_center(settings_string[4], 88, OPT2_HEIGHT);//значение опции,X,Y
 			};
 			text_out_center("↓", 88, 155);//надпись,X,Y
 		}
@@ -986,7 +981,7 @@ void draw_calend_option_menu(){
 			};
 			//опция 2 - Время выхода
 			text_out_center(settings_string[6], 88, 88);
-			char timerexit = INACTIVITY_PERIOD / 1000;
+			unsigned char timerexit = calend->inactivity_period / 1000;
 			_sprintf(text_timerexit, "%d", timerexit);
 			text_out_center(text_timerexit, 88, OPT2_HEIGHT); //надпись,X,Y
 			//кнопка отмены
@@ -1009,23 +1004,15 @@ void draw_calend_option_menu(){
 		};
 		//опция 1 минус
 		set_bg_color(COLOR_RED);
-		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
-			set_fg_color(COLOR_WHITE);
-		}
-		else {
-			set_fg_color(COLOR_BLACK);
-		}
+		set_fg_color(fgColor);
 	#define Left_WIDTH				24		//	X стрелок Опции 1
 	#define Right_WIDTH				153		//	X стрелок Опции 2
-		text_out_center("←", Left_WIDTH, OPT1_HEIGHT); //надпись,X,Y
-		//опция 2 минус
-		text_out_center("←", Left_WIDTH, OPT2_HEIGHT); //надпись,X,Y
-		//опция 1 плюс
+		text_out_center("←", Left_WIDTH, OPT1_HEIGHT); //опция 1 минус,X,Y
+		text_out_center("←", Left_WIDTH, OPT2_HEIGHT); //опция 2 минус,X,Y
 		set_bg_color(COLOR_GREEN);
 		//set_fg_color(COLOR_WHITE);
-		text_out_center("→", Right_WIDTH, OPT1_HEIGHT + 1); //надпись,X,Y
-		//опция 2 минус
-		text_out_center("→", Right_WIDTH, OPT2_HEIGHT + 1); //надпись,X,Y
+		text_out_center("→", Right_WIDTH, OPT1_HEIGHT + 1); //опция 1 плюс,X,Y
+		text_out_center("→", Right_WIDTH, OPT2_HEIGHT + 1); //опция 2 плюс,X,Y
 		repaint_screen_lines(0, 176);
 	}
 }
@@ -1053,7 +1040,12 @@ int dispatch_calend_screen (void *param){
 	 struct gesture_ *gest = param;
 #endif
 	 int result = 0;
-
+	 int fgColor = COLOR_BLACK;
+	 int bgColor = COLOR_WHITE;
+		if ((calend->color_scheme == 0) || (calend->color_scheme == 2) || (calend->color_scheme == 4)) {
+			fgColor = COLOR_WHITE;
+			bgColor = COLOR_BLACK;
+		}
 	//для корректного возврата на начальный экран календаря определяем какой месяц был выбран и нужно ли выделять текущий день
 	if ((calend->year == datetime.year) && (calend->month == datetime.month)) {
 		day = datetime.day; //выделяем
@@ -1091,8 +1083,7 @@ int dispatch_calend_screen (void *param){
 					// сначала обновим экран
 					if ((calend->year == datetime.year) && (calend->month == datetime.month)) {
 						day = datetime.day;
-					}
-					else {
+					}else {
 						day = 0;
 					}
 					draw_month(day, calend->month, calend->year);
@@ -1104,9 +1095,7 @@ int dispatch_calend_screen (void *param){
 			case 2: {
 					//смещение минус
 					if ((gest->touch_pos_y > 36) && (gest->touch_pos_y < 92) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 76)) {
-						if (calend->vibration_opt == 1) {
-							vibrate(2, 150, 70);
-						}
+						if (calend->vibration_opt == 1) vibrate(2, 150, 70);
 						if (option == 1) {
 							if (calend->yearoffset > 0) {
 								calend->yearoffset--;
@@ -1117,12 +1106,10 @@ int dispatch_calend_screen (void *param){
 								calend->graphik--;
 							}
 						}
-						draw_calend_option_menu();
+						draw_calend_option_menu(bgColor,fgColor);
 						//смещение плюс
 					}else if ((gest->touch_pos_y > 36) && (gest->touch_pos_y < 92) && (gest->touch_pos_x > 100) && (gest->touch_pos_x < 176)) {
-						if (calend->vibration_opt == 1) {
-							vibrate(2, 150, 70);
-						}
+						if (calend->vibration_opt == 1) vibrate(2, 150, 70);
 						if (option == 1) {
 							if (calend->yearoffset < 20) {
 								calend->yearoffset++;
@@ -1133,23 +1120,21 @@ int dispatch_calend_screen (void *param){
 								calend->graphik++;
 							}
 						}
-						draw_calend_option_menu();
+						draw_calend_option_menu(bgColor,fgColor);
 						//вибрация вЫключить
 					}else if ((gest->touch_pos_y > 94) && (gest->touch_pos_y < 146) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 76)) {
-						if (calend->vibration_opt == 1) {
-							vibrate(2, 150, 70);
-						}
+						if (calend->vibration_opt == 1) vibrate(2, 150, 70);
 						if (option == 1) {
 							if (calend->vibration_opt > 0) {
 								calend->vibration_opt--;
 							}
 						}
 						else if (option == 2) { //Таймаут минус
-							if (INACTIVITY_PERIOD > 30000) { //30000=30 сек.
-								INACTIVITY_PERIOD = INACTIVITY_PERIOD - 10000;
+							if (calend->inactivity_period > 30000) { //30000=30 сек.
+								calend->inactivity_period = calend->inactivity_period - 10000;
 							}
 						}
-						draw_calend_option_menu();
+						draw_calend_option_menu(bgColor,fgColor);
 						//вибрация включить
 					}else if ((gest->touch_pos_y > 94) && (gest->touch_pos_y < 146) && (gest->touch_pos_x > 100) && (gest->touch_pos_x < 176)) {
 						if (option == 1) {
@@ -1159,35 +1144,30 @@ int dispatch_calend_screen (void *param){
 							}
 						}
 						else if (option == 2) { //Таймаут плюс
-							if (calend->vibration_opt == 1) {
-								vibrate(2, 150, 70);
-							}
-							if (INACTIVITY_PERIOD < 2500000) {//2500000=250 сек.
-								INACTIVITY_PERIOD = INACTIVITY_PERIOD + 10000;
+							if (calend->vibration_opt == 1) vibrate(2, 150, 70);
+							if (calend->inactivity_period < 250000) {//250000=250 сек.
+								calend->inactivity_period = calend->inactivity_period + 10000;
 							}
 						}
-						draw_calend_option_menu();
+						draw_calend_option_menu(bgColor,fgColor);
 					}
 					if (option == 2) {
 						//кнопка отмены
 						if ((gest->touch_pos_y > 146) && (gest->touch_pos_y < 176) && (gest->touch_pos_x > 0) && (gest->touch_pos_x < 88)) {
-							if (calend->vibration_opt == 1) {
-								vibrate(1, 70, 0);
-							}
+							if (calend->vibration_opt == 1) vibrate(1, 70, 0);
 							option = 0;
 							draw_month(day, calend->month, calend->year);
 							repaint_screen_lines(0, 176);
 						//кнопка сохранить
 						}else if ((gest->touch_pos_y > 146) && (gest->touch_pos_y < 176) && (gest->touch_pos_x > 88) && (gest->touch_pos_x < 176)) {
-							if (calend->vibration_opt == 1) {
-								vibrate(1, 70, 0);
-							}
+							if (calend->vibration_opt == 1) vibrate(1, 70, 0);
 							option = 0;
 							// запишем настройки в флэш память
 							calend_opt.color_scheme = calend->color_scheme;
 							calend_opt.yearoffset_opt = calend->yearoffset;
 							calend_opt.vibration_opt = calend->vibration_opt;
 							calend_opt.graphik_opt = calend->graphik;
+							calend_opt.inactivity_period_opt = calend->inactivity_period;
 							ElfWriteSettings(ELF_INDEX_SELF, &calend_opt, OPT_OFFSET_CALEND_OPT, sizeof(struct calend_opt_));
 							_memclr(&calend_opt, sizeof(struct calend_opt_));
 							draw_month(day, calend->month, calend->year);
@@ -1197,15 +1177,15 @@ int dispatch_calend_screen (void *param){
 			break;
 			}//end case 2
 		}
-		// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
-		set_update_period(1, INACTIVITY_PERIOD);
+		// продлить таймер выхода при бездействии через calend->inactivity_period с
+		set_update_period(1, calend->inactivity_period);
 		break;
 	};
 		case GESTURE_SWIPE_RIGHT: {	//	свайп направо
 			switch(option){
 				case 0:{
 					option = 1;
-					draw_calend_option_menu();
+					draw_calend_option_menu(bgColor,fgColor);
 					repaint_screen_lines(0, 176); 
 					break;
 				}
@@ -1228,8 +1208,8 @@ int dispatch_calend_screen (void *param){
 						if ( get_ptr_show_menu_func() == show_f ){
 							// если dispatch_left_side_menu отработал безуспешно (листать некуда) то в show_menu_func по прежнему будет 
 							// содержаться наша функция show_calend_screen, тогда просто игнорируем этот жест
-							// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
-							set_update_period(1, INACTIVITY_PERIOD);
+							// продлить таймер выхода при бездействии через calend->inactivity_period с
+							set_update_period(1, calend->inactivity_period);
 							return 0;
 						}
 						//	если dispatch_left_side_menu отработал, то завершаем наше приложение, т.к. данные экрана уже выгрузились
@@ -1281,13 +1261,13 @@ int dispatch_calend_screen (void *param){
 						day = 0; //если месяц отличен от текущего то не выделяем его
 					draw_month(day, calend->month, calend->year);
 					repaint_screen_lines(1, 176);
-					// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
-					set_update_period(1, INACTIVITY_PERIOD);
+					// продлить таймер выхода при бездействии через calend->inactivity_period с
+					set_update_period(1, calend->inactivity_period);
 					break;
 				}
 				case 1:{
 					option = 2;
-					draw_calend_option_menu();
+					draw_calend_option_menu(bgColor,fgColor);
 					repaint_screen_lines(0, 176);
 					break;
 				}
@@ -1310,13 +1290,13 @@ int dispatch_calend_screen (void *param){
 						day = 0; //если месяц отличен от текущего то не выделяем его
 					draw_month(day, calend->month, calend->year);			
 					repaint_screen_lines(1, 176);
-					// продлить таймер выхода при бездействии через INACTIVITY_PERIOD с
-					set_update_period(1, INACTIVITY_PERIOD);
+					// продлить таймер выхода при бездействии через calend->inactivity_period с
+					set_update_period(1, calend->inactivity_period);
 					break;
 				}
 				case 2:{
 					option = 1;
-					draw_calend_option_menu();
+					draw_calend_option_menu(bgColor,fgColor);
 					repaint_screen_lines(0, 176);
 					break;
 				}

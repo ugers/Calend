@@ -2,27 +2,50 @@
 @setlocal EnableDelayedExpansion enableextensions
 @cls
 @cd %~dp0
+
+
+REM Путь к библиотеке libbip
+SET "LIBBIPPATH=..\libbip"
+
+
+
+if exist name.txt (
+set /p PROGRAM_NAME=< name.txt
+) else (
 @SET PROGRAM_NAME=%~dp0
-@for /D %%a in ("%PROGRAM_NAME:~0,-1%.txt") do @SET PROGRAM_NAME=%%~na
+@for /D %%a in ("!PROGRAM_NAME:~0,-1!.txt") do @SET PROGRAM_NAME=%%~na
+)
+
 
 @SET EABI=arm-none-eabi
-
-@SET LIB_BIP_PATH="..\libbip"
-@SET LIB_BIP="%LIB_BIP_PATH%\libbip.a" 
-
-@SET GCC_OPT=-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fno-math-errno -I "%LIB_BIP_PATH%" -c -Os -Wa,-R -Wall -fpie -pie -fpic -mthumb -mlittle-endian  -ffunction-sections -fdata-sections
-@SET LD_OPT=-lm -lc -EL -N -Os --cref -pie --gc-sections 
-
 @SET AS=%EABI%-as
 @SET LD=%EABI%-ld
 @SET OBJCOPY=%EABI%-objcopy
 @SET GCC=%EABI%-gcc
 @SET NM=%EABI%-nm
+@SET ELFUSCATE=..\elfuscatel.exe
+
+rem путь к библиотеке libbip
+@SET LIB_BIP_INC=%LIBBIPPATH%
+@SET "LIB_BIP_LIB=%LIB_BIP_INC%\lib" 
+
+@SET GCC_OPT=-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=auto -fsingle-precision-constant -fno-math-errno -ffast-math
+@SET GCC_OPT=%GCC_OPT% -I "%LIB_BIP_INC%" -c -Os -Wa,-R -Wall -fpie -pie -fpic -mlittle-endian  -ffunction-sections -fdata-sections 
+
+@for /f "tokens=2 delims=[=]"  %%i in ('"!GCC! !GCC_OPT! -print-search-dirs"') do	SET LIB_SRCH=%%~i
+
+set LIB_SRCH=!LIB_SRCH:;=" -L "!
+	
+@SET LD_OPT=-L "!LIB_BIP_LIB!" -L "!LIB_SRCH!" -EL -N -Os --cref -pie --gc-sections	
+
+rem echo !LD_OPT!
+rem Включить подробный вывод линковщика (если потерялись библиотеки)
+rem @SET LD_OPT=!LD_OPT! --verbose
 
 if exist label.txt (
 set /p LABEL=< label.txt
 ) else (
-SET LABEL = %PROGRAM_NAME%
+SET LABEL=%PROGRAM_NAME%
 )
 
 @call :echoColor 0F "====================================" 1
@@ -52,7 +75,7 @@ SET LABEL = %PROGRAM_NAME%
 
 @call :echoColor 0B "Сборка:"
 @call :echoColor 07 "	...создание elf файла"	1
-%LD% -Map %PARTNAME%.map -o %PROGRAM_NAME%.elf %FILES_TO_COMPILE% %LD_OPT% %LIB_BIP%
+%LD% %LD_OPT% -Map %PARTNAME%.map -o %PROGRAM_NAME%.elf %FILES_TO_COMPILE% -lbip -lgcc -lm -lc 
 @if errorlevel 1 goto :error
 
 if exist label.txt (
@@ -60,19 +83,31 @@ if exist label.txt (
 %OBJCOPY%  %PROGRAM_NAME%.elf --add-section .elf.label=label.txt
 )
 
-@call :EchoN "%PROGRAM_NAME%" > name.txt
 @call :echoColor 07 "	...elf_name"	1
+@if not exist name.txt (
+@call :EchoN "%PROGRAM_NAME%" > name.txt
 %OBJCOPY%  %PROGRAM_NAME%.elf --add-section .elf.name=name.txt
 if exist name.txt del name.txt
+) else (
+%OBJCOPY%  %PROGRAM_NAME%.elf --add-section .elf.name=name.txt
+)
 @if errorlevel 1 goto :error
 
 if exist asset.res (
 @call :echoColor 07 "	...ресурсы"	1
 %OBJCOPY%  %PROGRAM_NAME%.elf --add-section .elf.resources=asset.res
 )
+
 if exist settings.bin (
 @call :echoColor 07 "	...настройки"	1
 %OBJCOPY%  %PROGRAM_NAME%.elf --add-section .elf.settings=settings.bin
+)
+
+if exist %ELFUSCATE% (
+@call :echoColor 07 "	...обфускация"	1
+%ELFUSCATE% -f %PROGRAM_NAME_%.elf %PROGRAM_NAME%.elf > nul
+del %PROGRAM_NAME%.elf > nul
+move %PROGRAM_NAME_%.elf %PROGRAM_NAME%.elf > nul
 )
 
 
@@ -117,5 +152,4 @@ pause
  @ set /p .=%BS%%BS%%BS%%BS%%BS%%BS%%BS%%BS%%BS%<nul
  @ if "%3" neq "" echo.
  @exit /b 0
-::===========================================================
-====================================================
+::===============================================================================================================

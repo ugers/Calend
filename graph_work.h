@@ -65,8 +65,6 @@
 #define V_MARGIN 			1		//	вертикальный отступ от заголовка (базы)
 #endif
 
-
-unsigned int INACTIVITY_PERIOD = 30000;		//	время по прошествии которого выходим, 30 секунд
 unsigned char option = 0;						//переключатель тач скрина для меню опции
 
 // сохраняемые опции календаря
@@ -75,20 +73,22 @@ struct calend_opt_ {
 	unsigned char	yearoffset_opt; //	смещение графика
 	unsigned char	vibration_opt;	//	вибрация
 	unsigned char	graphik_opt;	//	график работы
+	unsigned int	inactivity_period_opt;		//	время по прошествии которого выходим, по умолчанию 30 секунд
 };
 
 // текущие данные просматриваемого/редактируемого календаря
 struct calend_ {
 	Elf_proc_* 	proc;				//	указатель на данные запущенного процесса
 		void* 	ret_f;				//	адрес функции возврата
-unsigned char	color_scheme;		//	цветовая схема
-unsigned char	vibration_opt;		//	вибрация
-unsigned char	yearoffset;		//	смещение графика
-unsigned char	graphik;		//	график работы
-									//	отображаемый месяц
-unsigned int 	day;				//	день
-unsigned int 	month;				//	месяц
-unsigned int 	year;				//	год
+		unsigned char	color_scheme;		//	цветовая схема
+		unsigned char	vibration_opt;		//	вибрация
+		unsigned char	yearoffset;			//	смещение графика
+		unsigned char	graphik;			//	график работы
+		unsigned int	inactivity_period;		//	время по прошествии которого выходим, по умолчанию 30 секунд
+											//	отображаемый месяц
+		unsigned int 	day;				//	день
+		unsigned int 	month;				//	месяц
+		unsigned int 	year;				//	год
 };
 
 
