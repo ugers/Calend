@@ -120,7 +120,7 @@ if ( (param0 == *calend_p) && get_var_menu_overlay()){ // возврат из о
 	}else{
 		calend->graphik = 0;
 	}
-	if((30000 < calend_opt.inactivity_period_opt) && (calend_opt.inactivity_period_opt < 260000)){
+	if((29000 < calend_opt.inactivity_period_opt) && (calend_opt.inactivity_period_opt < 260000)){
 		calend->inactivity_period = calend_opt.inactivity_period_opt;
 	}else{
 		calend->inactivity_period = 30000;
@@ -338,7 +338,7 @@ unsigned char m=month;
 	struct datetime_ datetime;
 	_memclr(&datetime, sizeof(struct datetime_));
 	get_current_date_time(&datetime);	// получим текущую дату
-	int current_year = datetime.year;
+	//int current_year = datetime.year;
 	_memclr(&datetime, sizeof(struct datetime_));
 if (d>1) {
      m=(month==1)?12:month-1;
